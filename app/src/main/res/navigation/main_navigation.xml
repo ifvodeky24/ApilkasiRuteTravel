@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_navigation"
+    app:startDestination="@id/splashScreenFragment">
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.aplikasirutetravel.ui.splash.SplashScreenFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.aplikasirutetravel.ui.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_perusahaanFragment"
+            app:destination="@id/perusahaanFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_angkutanFragment"
+            app:destination="@id/angkutanFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_kondisiJalanFragment"
+            app:destination="@id/kondisiJalanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/perusahaanFragment"
+        android:name="com.example.aplikasirutetravel.ui.perusahaan.PerusahaanFragment"
+        android:label="fragment_perusahaan"
+        tools:layout="@layout/fragment_perusahaan" >
+        <action
+            android:id="@+id/action_perusahaanFragment_to_detailPerusahaanFragment"
+            app:destination="@id/detailPerusahaanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/angkutanFragment"
+        android:name="com.example.aplikasirutetravel.ui.angkutan.AngkutanFragment"
+        android:label="fragment_angkutan"
+        tools:layout="@layout/fragment_angkutan" >
+        <action
+            android:id="@+id/action_angkutanFragment_to_detailAngkutanFragment"
+            app:destination="@id/detailAngkutanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kondisiJalanFragment"
+        android:name="com.example.aplikasirutetravel.ui.kondisi_jalan.KondisiJalanFragment"
+        android:label="fragment_kondisi_jalan"
+        tools:layout="@layout/fragment_kondisi_jalan" >
+        <action
+            android:id="@+id/action_kondisiJalanFragment_to_detailKondisiJalanFragment"
+            app:destination="@id/detailKondisiJalanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPerusahaanFragment"
+        android:name="com.example.aplikasirutetravel.ui.perusahaan.DetailPerusahaanFragment"
+        android:label="fragment_detail_perusahaan"
+        tools:layout="@layout/fragment_detail_perusahaan" />
+    <fragment
+        android:id="@+id/detailKondisiJalanFragment"
+        android:name="com.example.aplikasirutetravel.ui.kondisi_jalan.DetailKondisiJalanFragment"
+        android:label="fragment_detail_kondisi_jalan"
+        tools:layout="@layout/fragment_detail_kondisi_jalan" />
+    <fragment
+        android:id="@+id/detailAngkutanFragment"
+        android:name="com.example.aplikasirutetravel.ui.angkutan.DetailAngkutanFragment"
+        android:label="fragment_detail_angkutan"
+        tools:layout="@layout/fragment_detail_angkutan" />
+</navigation>

@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AplikasiRuteTravel</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gambar_perusahaan">Gambar Perusahaan</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiaWZ2b2Rla3kyNCIsImEiOiJja2o3OWMwbTQwc2RxMnNueTM2MGhlcmQzIn0.RCwh_CfUboO3VQIJpGD4ag</string>
+    <string name="mulai_navigasi">Mulai Navigasi</string>
+    <string name="current_location">Current Location</string>
+    <string name="cari_kondisi_jalan">Cari Kondisi Jalan</string>
+    <string name="cari">Cari</string>
+
+</resources>
