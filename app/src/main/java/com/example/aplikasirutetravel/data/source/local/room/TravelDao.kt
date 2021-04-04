@@ -31,4 +31,10 @@ interface TravelDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertKondisiJalan(module: List<KondisiJalanEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertPerusahaanById(module: PerusahaanEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertKondisiJalanById(module: KondisiJalanEntity)
 }

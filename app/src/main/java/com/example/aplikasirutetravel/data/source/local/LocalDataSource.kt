@@ -35,4 +35,10 @@ class LocalDataSource private constructor(private val travelDao: TravelDao) {
 
     fun insertKondisiJalan(kondisi_jalan: List<KondisiJalanEntity>) =
         travelDao.insertKondisiJalan(kondisi_jalan)
+
+    fun insertPerusahaanById(perusahaan: PerusahaanEntity) =
+        travelDao.insertPerusahaanById(perusahaan)
+
+    fun insertKondisiJalanById(kondisi_jalan: KondisiJalanEntity) =
+        travelDao.insertKondisiJalanById(kondisi_jalan)
 }

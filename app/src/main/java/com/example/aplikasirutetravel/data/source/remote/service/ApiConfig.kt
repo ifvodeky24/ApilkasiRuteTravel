@@ -6,6 +6,14 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiConfig {
+    companion object {
+        var perusahaan_image =
+            "http://arslyn.com/rute-travel/web/files/images/perusahaan_images/"
+
+        var kondisi_jalan =
+            "http://arslyn.com/rute-travel/web/files/images/kondisi_jalan_images/"
+    }
+
     private var retrofit: Retrofit? = null
 
     private fun getApiService(): Retrofit {
@@ -17,7 +25,7 @@ class ApiConfig {
                 .build()
 
             retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.100.84/sistem-angkutan/api/v1/")
+                .baseUrl("http://arslyn.com/rute-travel/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

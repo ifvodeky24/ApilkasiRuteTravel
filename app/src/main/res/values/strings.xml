@@ -8,5 +8,6 @@
     <string name="current_location">Current Location</string>
     <string name="cari_kondisi_jalan">Cari Kondisi Jalan</string>
     <string name="cari">Cari</string>
+    <string name="image_perusahaan">Image Perusahaan</string>
 
 </resources>

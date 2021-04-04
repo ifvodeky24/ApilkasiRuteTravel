@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.databinding.FragmentPerusahaanBinding
 import com.example.aplikasirutetravel.viewmodel.PerusahaanViewModel
 import com.example.aplikasirutetravel.viewmodel.ViewModelFactory
 import com.example.aplikasirutetravel.vo.Status
 
-class PerusahaanFragment : Fragment() {
+class PerusahaanFragment : Fragment(), PerusahaanCallback{
     private var _binding: FragmentPerusahaanBinding? = null
     private val binding get() = _binding
 
@@ -33,7 +35,7 @@ class PerusahaanFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this, factory)[PerusahaanViewModel::class.java]
 
-        val perusahaanAdapter = PerusahaanAdapter()
+        val perusahaanAdapter = PerusahaanAdapter(this@PerusahaanFragment)
         viewModel.getAllPerusahaan().observe(this, { perusahaan ->
             when (perusahaan.status) {
                 Status.LOADING -> binding?.progressBar?.visibility = View.VISIBLE
@@ -59,5 +61,14 @@ class PerusahaanFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onItemClick(id_perusahaan: String) {
+        val arg = Bundle()
+        arg.putString(
+            DetailPerusahaanFragment.ID_PERUSAHAAN,
+            id_perusahaan
+        )
+        findNavController().navigate(R.id.detailPerusahaanFragment, arg)
     }
 }

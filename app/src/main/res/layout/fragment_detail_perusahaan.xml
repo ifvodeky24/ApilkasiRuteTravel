@@ -1,14 +1,290 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.perusahaan.DetailPerusahaanFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPerusahaan"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:shadowRadius="10"
+            android:src="@drawable/ic_company" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNamaPerusahaan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Alamat"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAlamatPerusahaan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Asal"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvAsal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:textColor="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Tujuan"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTujuan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:textColor="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Pimpinan"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvPimpinan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:textColor="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Nomor Handphone"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvNomorHandphone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:textColor="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Facebook"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvFacebook"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:textColor="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Instagram"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvInstagram"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            android:textColor="@android:color/black">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="75dp"
+                android:layout_height="match_parent"
+                android:text="Website"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text=":"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvWebsite"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="15sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>

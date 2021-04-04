@@ -57,6 +57,39 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
         return listPerusahaan
     }
 
+    fun getPerusahaanById(id_perusahaan: String): LiveData<ApiResponse<List<Perusahaan>>> {
+        val listPerusahaan = MutableLiveData<ApiResponse<List<Perusahaan>>>()
+
+        apiConfig.client().getPerusahaanById(id_perusahaan)
+            .enqueue(object : Callback<PerusahaanResponse> {
+                override fun onResponse(
+                    call: Call<PerusahaanResponse>,
+                    response: Response<PerusahaanResponse>
+                ) {
+                    if (response.code() == 200) {
+                        response.body()?.perusahaan?.let {
+                            if (it.isNotEmpty()) {
+                                listPerusahaan.value = ApiResponse.success(it)
+                            } else if (it.isEmpty()) {
+                                listPerusahaan.value = ApiResponse.empty(EMPTY_DATA, it)
+                            }
+                        }
+
+                    } else {
+                        response.body()?.perusahaan?.let {
+                            listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, it)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<PerusahaanResponse>, t: Throwable) {
+                    listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, null)
+                }
+            })
+
+        return listPerusahaan
+    }
+
     fun getAllKondisiJalan(): LiveData<ApiResponse<List<KondisiJalan>>> {
         val listPerusahaan = MutableLiveData<ApiResponse<List<KondisiJalan>>>()
 
@@ -117,6 +150,38 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
                 listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, null)
             }
         })
+
+        return listPerusahaan
+    }
+
+    fun getKondisiJalanById(id_kondisi_jalan: String): LiveData<ApiResponse<List<KondisiJalan>>> {
+        val listPerusahaan = MutableLiveData<ApiResponse<List<KondisiJalan>>>()
+
+        apiConfig.client().getKondisiJalanById(id_kondisi_jalan)
+            .enqueue(object : Callback<KondisiJalanResponse> {
+                override fun onResponse(
+                    call: Call<KondisiJalanResponse>,
+                    response: Response<KondisiJalanResponse>
+                ) {
+                    if (response.code() == 200) {
+                        response.body()?.kondisi_jalan?.let {
+                            if (it.isNotEmpty()) {
+                                listPerusahaan.value = ApiResponse.success(it)
+                            } else if (it.isEmpty()) {
+                                listPerusahaan.value = ApiResponse.empty(EMPTY_DATA, it)
+                            }
+                        }
+                    } else {
+                        response.body()?.kondisi_jalan?.let {
+                            listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, it)
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<KondisiJalanResponse>, t: Throwable) {
+                    listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, null)
+                }
+            })
 
         return listPerusahaan
     }

@@ -10,4 +10,7 @@ class PerusahaanViewModel(private val perusahaanRepository: TravelRepository) : 
 
     fun getAllPerusahaan(): LiveData<Resource<List<PerusahaanEntity>>> =
         perusahaanRepository.getAllPerusahaan()
+
+    fun getPerusahaanById(id_perusahaan: String): LiveData<Resource<PerusahaanEntity>> =
+        perusahaanRepository.getPerusahaanById(id_perusahaan)
 }

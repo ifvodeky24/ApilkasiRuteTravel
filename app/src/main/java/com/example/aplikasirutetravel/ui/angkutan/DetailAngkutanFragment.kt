@@ -33,5 +33,4 @@ class DetailAngkutanFragment : Fragment() {
             Timber.d("cek kondisi jalan $id_angkutan")
         }
     }
-
 }

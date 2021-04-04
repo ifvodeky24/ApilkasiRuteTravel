@@ -68,14 +68,47 @@ class TravelRepository private constructor(
                     )
                     perusahaanList.add(perusahaan)
                 }
-
                 localDataSource.insertPerusahaan(perusahaanList)
             }
         }.asLiveData()
     }
 
     override fun getPerusahaanById(id_perusahaan: String): LiveData<Resource<PerusahaanEntity>> {
-        TODO("Not yet implemented")
+        return object :
+            NetworkBoundResource<PerusahaanEntity, List<Perusahaan>>(appExecutors) {
+            override fun loadFromDB(): LiveData<PerusahaanEntity> =
+                localDataSource.getPerusahaanById(id_perusahaan)
+
+            override fun shouldFetch(data: PerusahaanEntity?): Boolean =
+                data == null
+
+            override fun createCall(): LiveData<ApiResponse<List<Perusahaan>>> =
+                remoteDataSource.getPerusahaanById(id_perusahaan)
+
+            override fun saveCallResult(data: List<Perusahaan>) {
+                val perusahaan = PerusahaanEntity(
+                    data[0].id_perusahaan,
+                    data[0].alamat_perusahaan,
+                    data[0].asal,
+                    data[0].created_at,
+                    data[0].facebook,
+                    data[0].foto,
+                    data[0].grid_rute,
+                    data[0].id_jadwal,
+                    data[0].id_trayek,
+                    data[0].instagram,
+                    data[0].nama_perusahaan,
+                    data[0].nama_trayek,
+                    data[0].nomor_handphone,
+                    data[0].pimpinan,
+                    data[0].status,
+                    data[0].tujuan,
+                    data[0].updated_at,
+                    data[0].website,
+                )
+                localDataSource.insertPerusahaanById(perusahaan)
+            }
+        }.asLiveData()
     }
 
     override fun getAllKondisiJalan(): LiveData<Resource<List<KondisiJalanEntity>>> {
@@ -106,7 +139,6 @@ class TravelRepository private constructor(
                     )
                     kondisiJalanList.add(kondisiJalan)
                 }
-
                 localDataSource.insertKondisiJalan(kondisiJalanList)
             }
         }.asLiveData()
@@ -147,7 +179,32 @@ class TravelRepository private constructor(
     }
 
     override fun getKondisiJalanById(id_kondisi_jalan: String): LiveData<Resource<KondisiJalanEntity>> {
-        TODO("Not yet implemented")
+        return object :
+            NetworkBoundResource<KondisiJalanEntity, List<KondisiJalan>>(appExecutors) {
+            override fun loadFromDB(): LiveData<KondisiJalanEntity> =
+                localDataSource.getKondisiJalanById(id_kondisi_jalan)
+
+            override fun shouldFetch(data: KondisiJalanEntity?): Boolean =
+                data == null
+
+            override fun createCall(): LiveData<ApiResponse<List<KondisiJalan>>> =
+                remoteDataSource.getKondisiJalanById(id_kondisi_jalan)
+
+            override fun saveCallResult(data: List<KondisiJalan>) {
+                val kondisiJalan = KondisiJalanEntity(
+                    data[0].id_kondisi_jalan,
+                    data[0].created_at,
+                    data[0].deskripsi,
+                    data[0].foto,
+                    data[0].latitude,
+                    data[0].longitude,
+                    data[0].nama_lokasi,
+                    data[0].tanggal,
+                    data[0].updated_at
+                )
+                localDataSource.insertKondisiJalanById(kondisiJalan)
+            }
+        }.asLiveData()
     }
 
 }

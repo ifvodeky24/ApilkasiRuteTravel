@@ -97,12 +97,40 @@ class KondisiJalanFragment : Fragment() {
                         Status.SUCCESS -> {
                             Timber.d("cek ${kondisiJalan.data?.size}")
                             showMarker(kondisiJalan.data)
+
+                            binding?.ivCari?.setOnClickListener {
+                                val factory = ViewModelFactory.getInstance(requireActivity())
+
+                                val viewModel = ViewModelProvider(this, factory)[KondisiJalanViewModel::class.java]
+
+                                Timber.d("cek text ${binding?.edtCari?.text.toString()}")
+                                viewModel.getAllKondisiJalanSearch(binding?.edtCari?.text.toString()).observe(this, { kondisiJalan ->
+                                    Timber.d("cek kondisi ${kondisiJalan.data?.size}")
+
+                                    when (kondisiJalan.status) {
+                                        Status.SUCCESS -> {
+                                            Timber.d("cek search ${kondisiJalan.data?.size}")
+                                            showMarker(kondisiJalan.data)
+                                        }
+                                        Status.ERROR -> {
+                                            Timber.d("cek search error ${kondisiJalan.message}")
+                                        }
+                                    }
+                                })
+                            }
                         }
                         Status.ERROR -> {
                             Timber.d("cek error ${kondisiJalan.message}")
                         }
                     }
                 })
+
+                binding?.ivCurrentLocation?.setOnClickListener {
+                    mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 12.0))
+                    binding?.btnNavigation?.gone()
+                    binding?.btnDetail?.gone()
+                    navigationMapRoute.updateRouteVisibilityTo(false)
+                }
             }
         }
     }
@@ -160,7 +188,7 @@ class KondisiJalanFragment : Fragment() {
                             DetailKondisiJalanFragment.ID_KONDISI_JALAN,
                             dataKondisiJalan.id_kondisi_jalan
                         )
-                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+//                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
 //                val intent = Intent(this, DetailTourismActivity::class.java)
 //                intent.putExtra(DetailTourismActivity.EXTRA_DATA, data)
 //                startActivity(intent)
@@ -175,6 +203,7 @@ class KondisiJalanFragment : Fragment() {
                         requestRoute(origin, destination)
 
                         binding?.btnNavigation?.visible()
+                        binding?.btnDetail?.visible()
 
                         binding?.btnNavigation?.setOnClickListener {
                             val simulateRoute = false
@@ -185,6 +214,17 @@ class KondisiJalanFragment : Fragment() {
                                 .build()
 
                             NavigationLauncher.startNavigation(activity, options)
+                        }
+
+                        binding?.btnDetail?.setOnClickListener {
+                            val dataKondisiJalan =
+                                Gson().fromJson(symbol.data, KondisiJalanEntity::class.java)
+                            val arg = Bundle()
+                            arg.putString(
+                                DetailKondisiJalanFragment.ID_KONDISI_JALAN,
+                                dataKondisiJalan.id_kondisi_jalan
+                            )
+                            findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
                         }
                     }
                 } else {
@@ -214,7 +254,7 @@ class KondisiJalanFragment : Fragment() {
                             DetailKondisiJalanFragment.ID_KONDISI_JALAN,
                             data[0].id_kondisi_jalan
                         )
-                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+//                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
 
                         val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
                         val destination = Point.fromLngLat(
@@ -224,6 +264,7 @@ class KondisiJalanFragment : Fragment() {
                         requestRoute(origin, destination)
 
                         binding?.btnNavigation?.visible()
+                        binding?.btnDetail?.visible()
 
                         binding?.btnNavigation?.setOnClickListener {
                             val simulateRoute = false
@@ -235,34 +276,21 @@ class KondisiJalanFragment : Fragment() {
 
                             NavigationLauncher.startNavigation(activity, options)
                         }
+
+                        binding?.btnDetail?.setOnClickListener {
+                            val arg = Bundle()
+                            arg.putString(
+                                DetailKondisiJalanFragment.ID_KONDISI_JALAN,
+                                data[0].id_kondisi_jalan
+                            )
+                            findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+                        }
                     }
 //                    mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(data[0].latitude.toDouble(), data[0].longitude.toDouble()), 8.0))
                 }
             }
 
-            binding?.ivCurrentLocation?.setOnClickListener {
-                mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 12.0))
-                binding?.btnNavigation?.gone()
-                navigationMapRoute.updateRouteVisibilityTo(false)
-            }
 
-            binding?.ivCari?.setOnClickListener {
-                val factory = ViewModelFactory.getInstance(requireActivity())
-
-                val viewModel = ViewModelProvider(this, factory)[KondisiJalanViewModel::class.java]
-
-                viewModel.getAllKondisiJalanSearch("paris").observe(this, { kondisiJalan ->
-                    when (kondisiJalan.status) {
-                        Status.SUCCESS -> {
-                            Timber.d("cek search ${kondisiJalan.data?.size}")
-                            showMarker(kondisiJalan.data)
-                        }
-                        Status.ERROR -> {
-                            Timber.d("cek search error ${kondisiJalan.message}")
-                        }
-                    }
-                })
-            }
         }
     }
 
