@@ -12,5 +12,7 @@
     <string name="nama_lokasi">Nama Lokasi</string>
     <string name="tanggal">Tanggal</string>
     <string name="deskripsi">Deskripsi</string>
+    <string name="nama_perusahaan">Nama Perusahaan</string>
+    <string name="alamat">Alamat</string>
 
 </resources>
