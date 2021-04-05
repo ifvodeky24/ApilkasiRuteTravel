@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.aplikasirutetravel.data.source.remote.service.ApiConfig
 import com.example.aplikasirutetravel.databinding.FragmentDetailKondisiJalanBinding
+import com.example.aplikasirutetravel.databinding.FragmentDetailKondisiJalanNewBinding
 import com.example.aplikasirutetravel.viewmodel.KondisiJalanViewModel
 import com.example.aplikasirutetravel.viewmodel.ViewModelFactory
 import com.example.aplikasirutetravel.vo.Status
@@ -23,7 +24,7 @@ class DetailKondisiJalanFragment : Fragment() {
         const val ID_KONDISI_JALAN = "id_kondisi_jalan"
     }
 
-    private var _binding: FragmentDetailKondisiJalanBinding? = null
+    private var _binding: FragmentDetailKondisiJalanNewBinding? = null
     private val binding get() = _binding
 
     override fun onCreateView(
@@ -31,7 +32,7 @@ class DetailKondisiJalanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentDetailKondisiJalanBinding.inflate(inflater, container, false)
+        _binding = FragmentDetailKondisiJalanNewBinding.inflate(inflater, container, false)
         return binding?.root
     }
 

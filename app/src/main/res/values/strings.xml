@@ -9,5 +9,8 @@
     <string name="cari_kondisi_jalan">Cari Kondisi Jalan</string>
     <string name="cari">Cari</string>
     <string name="image_perusahaan">Image Perusahaan</string>
+    <string name="nama_lokasi">Nama Lokasi</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="deskripsi">Deskripsi</string>
 
 </resources>
