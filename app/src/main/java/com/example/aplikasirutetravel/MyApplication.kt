@@ -1,7 +1,6 @@
 package com.example.aplikasirutetravel
 
 import android.app.Application
-import com.example.aplikasirutetravel.BuildConfig
 import com.mapbox.mapboxsdk.Mapbox
 import timber.log.Timber
 

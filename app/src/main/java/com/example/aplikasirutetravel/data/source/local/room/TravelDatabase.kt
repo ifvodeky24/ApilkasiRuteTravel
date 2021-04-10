@@ -6,9 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
 import com.example.aplikasirutetravel.data.source.local.entity.PerusahaanEntity
+import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
 
 @Database(
-    entities = [PerusahaanEntity::class, KondisiJalanEntity::class],
+    entities = [PerusahaanEntity::class,
+        KondisiJalanEntity::class,
+        TrayekEntity::class],
     version = 1,
     exportSchema = false
 )
@@ -27,7 +30,7 @@ abstract class TravelDatabase : RoomDatabase() {
                     if (INSTANCE == null) {
                         INSTANCE = Room.databaseBuilder(
                             context.applicationContext,
-                            TravelDatabase::class.java, "Travel.db"
+                            TravelDatabase::class.java, "Travels.db"
                         )
                             .build()
                     }

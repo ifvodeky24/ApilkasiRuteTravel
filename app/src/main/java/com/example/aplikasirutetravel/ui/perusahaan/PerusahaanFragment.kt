@@ -15,7 +15,7 @@ import com.example.aplikasirutetravel.viewmodel.PerusahaanViewModel
 import com.example.aplikasirutetravel.viewmodel.ViewModelFactory
 import com.example.aplikasirutetravel.vo.Status
 
-class PerusahaanFragment : Fragment(), PerusahaanCallback{
+class PerusahaanFragment : Fragment(), PerusahaanCallback {
     private var _binding: FragmentPerusahaanBinding? = null
     private val binding get() = _binding
 

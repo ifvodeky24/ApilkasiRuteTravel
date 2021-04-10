@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.aplikasirutetravel.data.TravelRepository
 import com.example.aplikasirutetravel.di.Injection
 
-class ViewModelFactory private constructor(private val perusahaanRepository: TravelRepository) :
+class ViewModelFactory private constructor(private val travelRepository: TravelRepository) :
     ViewModelProvider.NewInstanceFactory() {
 
     companion object {
@@ -23,10 +23,13 @@ class ViewModelFactory private constructor(private val perusahaanRepository: Tra
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(PerusahaanViewModel::class.java) -> {
-                PerusahaanViewModel(perusahaanRepository) as T
+                PerusahaanViewModel(travelRepository) as T
             }
             modelClass.isAssignableFrom(KondisiJalanViewModel::class.java) -> {
-                KondisiJalanViewModel(perusahaanRepository) as T
+                KondisiJalanViewModel(travelRepository) as T
+            }
+            modelClass.isAssignableFrom(TrayekViewModel::class.java) -> {
+                TrayekViewModel(travelRepository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

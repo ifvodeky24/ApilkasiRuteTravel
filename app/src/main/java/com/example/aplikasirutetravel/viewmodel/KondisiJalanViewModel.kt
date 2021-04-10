@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.aplikasirutetravel.data.TravelRepository
 import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
-import com.example.aplikasirutetravel.data.source.local.entity.PerusahaanEntity
 import com.example.aplikasirutetravel.vo.Resource
 
 class KondisiJalanViewModel(private val perusahaanRepository: TravelRepository) : ViewModel() {

@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData
 import com.example.aplikasirutetravel.data.source.local.LocalDataSource
 import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
 import com.example.aplikasirutetravel.data.source.local.entity.PerusahaanEntity
+import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
 import com.example.aplikasirutetravel.data.source.remote.ApiResponse
 import com.example.aplikasirutetravel.data.source.remote.RemoteDataSource
 import com.example.aplikasirutetravel.data.source.remote.response.KondisiJalan
 import com.example.aplikasirutetravel.data.source.remote.response.Perusahaan
+import com.example.aplikasirutetravel.data.source.remote.response.Trayek
 import com.example.aplikasirutetravel.utils.AppExecutors
 import com.example.aplikasirutetravel.vo.Resource
 
@@ -53,7 +55,6 @@ class TravelRepository private constructor(
                         response.created_at,
                         response.facebook,
                         response.foto,
-                        response.grid_rute,
                         response.id_jadwal,
                         response.id_trayek,
                         response.instagram,
@@ -69,6 +70,45 @@ class TravelRepository private constructor(
                     perusahaanList.add(perusahaan)
                 }
                 localDataSource.insertPerusahaan(perusahaanList)
+            }
+        }.asLiveData()
+    }
+
+    override fun getAllTrayek(): LiveData<Resource<List<TrayekEntity>>> {
+        return object :
+            NetworkBoundResource<List<TrayekEntity>, List<Trayek>>(appExecutors) {
+            override fun loadFromDB(): LiveData<List<TrayekEntity>> =
+                localDataSource.getAllTrayek()
+
+            override fun shouldFetch(data: List<TrayekEntity>?): Boolean =
+                true
+
+            override fun createCall(): LiveData<ApiResponse<List<Trayek>>> =
+                remoteDataSource.getAllTrayek()
+
+            public override fun saveCallResult(data: List<Trayek>) {
+                val trayekList = ArrayList<TrayekEntity>()
+                for (response in data) {
+                    val trayek = TrayekEntity(
+                        response.id_trayek,
+                        response.nama_trayek,
+                        response.asal,
+                        response.tujuan,
+                        response.id_jadwal,
+                        response.latitude_asal,
+                        response.longitude_asal,
+                        response.latitude_tujuan,
+                        response.longitude_tujuan,
+                        response.status,
+                        response.created_at,
+                        response.updated_at,
+                        response.jam,
+                        response.hari,
+                        response.nama_perusahaan
+                    )
+                    trayekList.add(trayek)
+                }
+                localDataSource.insertTrayek(trayekList)
             }
         }.asLiveData()
     }
@@ -93,7 +133,6 @@ class TravelRepository private constructor(
                     data[0].created_at,
                     data[0].facebook,
                     data[0].foto,
-                    data[0].grid_rute,
                     data[0].id_jadwal,
                     data[0].id_trayek,
                     data[0].instagram,

@@ -28,9 +28,6 @@ data class PerusahaanEntity(
     @ColumnInfo(name = "foto")
     val foto: String,
 
-    @ColumnInfo(name = "grid_rute")
-    val grid_rute: String,
-
     @ColumnInfo(name = "id_jadwal")
     val id_jadwal: String,
 

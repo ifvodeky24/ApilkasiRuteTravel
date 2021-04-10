@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.aplikasirutetravel.data.source.remote.service.ApiConfig
-import com.example.aplikasirutetravel.databinding.FragmentDetailPerusahaanBinding
 import com.example.aplikasirutetravel.databinding.FragmentDetailPerusahaanNewBinding
 import com.example.aplikasirutetravel.viewmodel.PerusahaanViewModel
 import com.example.aplikasirutetravel.viewmodel.ViewModelFactory

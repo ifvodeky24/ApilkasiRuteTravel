@@ -81,4 +81,5 @@ dependencies {
     implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:$mapBoxSdk"
     implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:$mapBoxAnnotation"
     implementation "com.mapbox.mapboxsdk:mapbox-android-navigation-ui:$navigationUi"
+    implementation "com.karumi:dexter:$dexter"
 }

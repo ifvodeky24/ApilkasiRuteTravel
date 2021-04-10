@@ -53,4 +53,5 @@ ext {
     mapBoxSdk = "9.2.0"
     mapBoxAnnotation= "0.7.0"
     navigationUi= "0.42.6"
+    dexter= "6.2.2"
 }

@@ -184,18 +184,18 @@
 
     </androidx.core.widget.NestedScrollView>
 
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab_maps_pharmacy"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="44dp"-->
-<!--        android:layout_margin="@dimen/spacing_mlarge"-->
-<!--        android:clickable="true"-->
-<!--        android:tint="@android:color/white"-->
-<!--        app:backgroundTint="@color/light_green_600"-->
-<!--        app:fabSize="normal"-->
-<!--        app:layout_anchor="@id/app_bar_layout"-->
-<!--        app:layout_anchorGravity="bottom|right|end"-->
-<!--        app:srcCompat="@drawable/ic_map_white"-->
-<!--        tools:ignore="VectorDrawableCompat" />-->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:id="@+id/fab_maps_pharmacy"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="44dp"-->
+    <!--        android:layout_margin="@dimen/spacing_mlarge"-->
+    <!--        android:clickable="true"-->
+    <!--        android:tint="@android:color/white"-->
+    <!--        app:backgroundTint="@color/light_green_600"-->
+    <!--        app:fabSize="normal"-->
+    <!--        app:layout_anchor="@id/app_bar_layout"-->
+    <!--        app:layout_anchorGravity="bottom|right|end"-->
+    <!--        app:srcCompat="@drawable/ic_map_white"-->
+    <!--        tools:ignore="VectorDrawableCompat" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

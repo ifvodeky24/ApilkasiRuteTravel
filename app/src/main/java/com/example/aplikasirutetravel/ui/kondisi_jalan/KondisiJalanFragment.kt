@@ -101,22 +101,26 @@ class KondisiJalanFragment : Fragment() {
                             binding?.ivCari?.setOnClickListener {
                                 val factory = ViewModelFactory.getInstance(requireActivity())
 
-                                val viewModel = ViewModelProvider(this, factory)[KondisiJalanViewModel::class.java]
+                                val viewModel = ViewModelProvider(
+                                    this,
+                                    factory
+                                )[KondisiJalanViewModel::class.java]
 
                                 Timber.d("cek text ${binding?.edtCari?.text.toString()}")
-                                viewModel.getAllKondisiJalanSearch(binding?.edtCari?.text.toString()).observe(this, { kondisiJalan ->
-                                    Timber.d("cek kondisi ${kondisiJalan.data?.size}")
+                                viewModel.getAllKondisiJalanSearch(binding?.edtCari?.text.toString())
+                                    .observe(this, { kondisiJalan ->
+                                        Timber.d("cek kondisi ${kondisiJalan.data?.size}")
 
-                                    when (kondisiJalan.status) {
-                                        Status.SUCCESS -> {
-                                            Timber.d("cek search ${kondisiJalan.data?.size}")
-                                            showMarker(kondisiJalan.data)
+                                        when (kondisiJalan.status) {
+                                            Status.SUCCESS -> {
+                                                Timber.d("cek search ${kondisiJalan.data?.size}")
+                                                showMarker(kondisiJalan.data)
+                                            }
+                                            Status.ERROR -> {
+                                                Timber.d("cek search error ${kondisiJalan.message}")
+                                            }
                                         }
-                                        Status.ERROR -> {
-                                            Timber.d("cek search error ${kondisiJalan.message}")
-                                        }
-                                    }
-                                })
+                                    })
                             }
                         }
                         Status.ERROR -> {
@@ -322,6 +326,7 @@ class KondisiJalanFragment : Fragment() {
                 locationComponent.lastKnownLocation?.latitude as Double,
                 locationComponent.lastKnownLocation?.longitude as Double
             )
+            Timber.d("my location $mylocation")
             mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 12.0))
         } else {
             permissionsManager = PermissionsManager(object : PermissionsListener {

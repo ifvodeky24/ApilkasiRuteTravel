@@ -9,7 +9,7 @@
         android:id="@+id/splashScreenFragment"
         android:name="com.example.aplikasirutetravel.ui.splash.SplashScreenFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreenFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -19,7 +19,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.aplikasirutetravel.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_perusahaanFragment"
             app:destination="@id/perusahaanFragment" />
@@ -34,7 +34,7 @@
         android:id="@+id/perusahaanFragment"
         android:name="com.example.aplikasirutetravel.ui.perusahaan.PerusahaanFragment"
         android:label="fragment_perusahaan"
-        tools:layout="@layout/fragment_perusahaan" >
+        tools:layout="@layout/fragment_perusahaan">
         <action
             android:id="@+id/action_perusahaanFragment_to_detailPerusahaanFragment"
             app:destination="@id/detailPerusahaanFragment" />
@@ -43,7 +43,7 @@
         android:id="@+id/angkutanFragment"
         android:name="com.example.aplikasirutetravel.ui.angkutan.AngkutanFragment"
         android:label="fragment_angkutan"
-        tools:layout="@layout/fragment_angkutan" >
+        tools:layout="@layout/fragment_angkutan">
         <action
             android:id="@+id/action_angkutanFragment_to_detailAngkutanFragment"
             app:destination="@id/detailAngkutanFragment" />
@@ -52,7 +52,7 @@
         android:id="@+id/kondisiJalanFragment"
         android:name="com.example.aplikasirutetravel.ui.kondisi_jalan.KondisiJalanFragment"
         android:label="fragment_kondisi_jalan"
-        tools:layout="@layout/fragment_kondisi_jalan" >
+        tools:layout="@layout/fragment_kondisi_jalan">
         <action
             android:id="@+id/action_kondisiJalanFragment_to_detailKondisiJalanFragment"
             app:destination="@id/detailKondisiJalanFragment" />

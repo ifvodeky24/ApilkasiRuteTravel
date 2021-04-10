@@ -2,6 +2,7 @@ package com.example.aplikasirutetravel.data.source.remote.service
 
 import com.example.aplikasirutetravel.data.source.remote.response.KondisiJalanResponse
 import com.example.aplikasirutetravel.data.source.remote.response.PerusahaanResponse
+import com.example.aplikasirutetravel.data.source.remote.response.TrayekResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -29,4 +30,8 @@ interface ApiService {
     fun getKondisiJalanSearch(
         @Query("query") query: String?,
     ): Call<KondisiJalanResponse>
+
+    @GET("trayek/get-all")
+    fun getAllTrayek(
+    ): Call<TrayekResponse>
 }

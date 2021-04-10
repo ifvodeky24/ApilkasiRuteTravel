@@ -3,27 +3,25 @@ package com.example.aplikasirutetravel.data.source.remote.response
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-data class PerusahaanResponse(
-    val perusahaan: List<Perusahaan>
+data class TrayekResponse(
+    val trayek: List<Trayek>
 )
 
 @Parcelize
-data class Perusahaan(
-    val alamat_perusahaan: String,
+data class Trayek(
     val asal: String,
     val created_at: String,
-    val facebook: String,
-    val foto: String,
+    val hari: String,
     val id_jadwal: String,
-    val id_perusahaan: String,
     val id_trayek: String,
-    val instagram: String,
+    val jam: String,
+    val latitude_asal: String,
+    val latitude_tujuan: String,
+    val longitude_asal: String,
+    val longitude_tujuan: String,
     val nama_perusahaan: String,
     val nama_trayek: String,
-    val nomor_handphone: String,
-    val pimpinan: String,
     val status: String,
     val tujuan: String,
-    val updated_at: String,
-    val website: String
+    val updated_at: String
 ) : Parcelable
