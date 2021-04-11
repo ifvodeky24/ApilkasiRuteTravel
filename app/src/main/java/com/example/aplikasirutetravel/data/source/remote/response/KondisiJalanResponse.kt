@@ -1,10 +1,15 @@
 package com.example.aplikasirutetravel.data.source.remote.response
 
 import android.os.Parcelable
+import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
 import kotlinx.parcelize.Parcelize
 
 data class KondisiJalanResponse(
     val kondisi_jalan: List<KondisiJalan>
+)
+
+data class KondisiJalanSearchResponse(
+    val kondisi_jalan: List<KondisiJalanEntity>
 )
 
 @Parcelize

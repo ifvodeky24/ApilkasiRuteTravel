@@ -1,6 +1,7 @@
 package com.example.aplikasirutetravel.data
 
 import androidx.lifecycle.LiveData
+import com.example.aplikasirutetravel.data.source.NetworkOnlyResource
 import com.example.aplikasirutetravel.data.source.local.LocalDataSource
 import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
 import com.example.aplikasirutetravel.data.source.local.entity.PerusahaanEntity
@@ -185,34 +186,13 @@ class TravelRepository private constructor(
 
     override fun getAllKondisiJalanSearch(query: String): LiveData<Resource<List<KondisiJalanEntity>>> {
         return object :
-            NetworkBoundResource<List<KondisiJalanEntity>, List<KondisiJalan>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<KondisiJalanEntity>> =
-                localDataSource.getAllKondisiJalanSearch(query)
+            NetworkOnlyResource<List<KondisiJalanEntity>, List<KondisiJalanEntity>>(appExecutors) {
+            override fun handleCallResult(item: List<KondisiJalanEntity>?): List<KondisiJalanEntity>? {
+                return item
+            }
 
-            override fun shouldFetch(data: List<KondisiJalanEntity>?): Boolean =
-                data == null || data.isEmpty()
-
-            override fun createCall(): LiveData<ApiResponse<List<KondisiJalan>>> =
-                remoteDataSource.getKondisiJalanSearch(query)
-
-            override fun saveCallResult(data: List<KondisiJalan>) {
-                val kondisiJalanList = ArrayList<KondisiJalanEntity>()
-                for (response in data) {
-                    val kondisiJalan = KondisiJalanEntity(
-                        response.id_kondisi_jalan,
-                        response.created_at,
-                        response.deskripsi,
-                        response.foto,
-                        response.latitude,
-                        response.longitude,
-                        response.nama_lokasi,
-                        response.tanggal,
-                        response.updated_at
-                    )
-                    kondisiJalanList.add(kondisiJalan)
-                }
-
-                localDataSource.insertKondisiJalan(kondisiJalanList)
+            override fun createCall(): LiveData<ApiResponse<List<KondisiJalanEntity>>> {
+                return remoteDataSource.getKondisiJalanSearch(query)
             }
         }.asLiveData()
     }

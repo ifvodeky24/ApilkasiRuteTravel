@@ -2,6 +2,7 @@ package com.example.aplikasirutetravel.data.source.remote
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
 import com.example.aplikasirutetravel.data.source.remote.response.*
 import com.example.aplikasirutetravel.data.source.remote.service.ApiConfig
 import com.example.aplikasirutetravel.utils.EMPTY_DATA
@@ -90,7 +91,7 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
     }
 
     fun getAllKondisiJalan(): LiveData<ApiResponse<List<KondisiJalan>>> {
-        val listPerusahaan = MutableLiveData<ApiResponse<List<KondisiJalan>>>()
+        val listKondisiJalan = MutableLiveData<ApiResponse<List<KondisiJalan>>>()
 
         apiConfig.client().getAllKondisiJalan().enqueue(object : Callback<KondisiJalanResponse> {
             override fun onResponse(
@@ -100,62 +101,62 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
                 if (response.code() == 200) {
                     response.body()?.kondisi_jalan?.let {
                         if (it.isNotEmpty()) {
-                            listPerusahaan.value = ApiResponse.success(it)
+                            listKondisiJalan.value = ApiResponse.success(it)
                         } else if (it.isEmpty()) {
-                            listPerusahaan.value = ApiResponse.empty(EMPTY_DATA, it)
+                            listKondisiJalan.value = ApiResponse.empty(EMPTY_DATA, it)
                         }
                     }
 
                 } else {
                     response.body()?.kondisi_jalan?.let {
-                        listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, it)
+                        listKondisiJalan.value = ApiResponse.error(ERROR_CONNECTION, it)
                     }
                 }
             }
 
             override fun onFailure(call: Call<KondisiJalanResponse>, t: Throwable) {
-                listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, null)
+                listKondisiJalan.value = ApiResponse.error(ERROR_CONNECTION, null)
             }
         })
 
-        return listPerusahaan
+        return listKondisiJalan
     }
 
-    fun getKondisiJalanSearch(query: String): LiveData<ApiResponse<List<KondisiJalan>>> {
-        val listPerusahaan = MutableLiveData<ApiResponse<List<KondisiJalan>>>()
+    fun getKondisiJalanSearch(query: String): LiveData<ApiResponse<List<KondisiJalanEntity>>> {
+        val listKondisiJalan = MutableLiveData<ApiResponse<List<KondisiJalanEntity>>>()
 
         apiConfig.client().getKondisiJalanSearch(query)
-            .enqueue(object : Callback<KondisiJalanResponse> {
+            .enqueue(object : Callback<KondisiJalanSearchResponse> {
                 override fun onResponse(
-                    call: Call<KondisiJalanResponse>,
-                    response: Response<KondisiJalanResponse>
+                    call: Call<KondisiJalanSearchResponse>,
+                    response: Response<KondisiJalanSearchResponse>
                 ) {
                     if (response.code() == 200) {
                         response.body()?.kondisi_jalan?.let {
                             if (it.isNotEmpty()) {
-                                listPerusahaan.value = ApiResponse.success(it)
+                                listKondisiJalan.value = ApiResponse.success(it)
                             } else if (it.isEmpty()) {
-                                listPerusahaan.value = ApiResponse.empty(EMPTY_DATA, it)
+                                listKondisiJalan.value = ApiResponse.empty(EMPTY_DATA, it)
                             }
                         }
 
                     } else {
                         response.body()?.kondisi_jalan?.let {
-                            listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, it)
+                            listKondisiJalan.value = ApiResponse.error(ERROR_CONNECTION, it)
                         }
                     }
                 }
 
-                override fun onFailure(call: Call<KondisiJalanResponse>, t: Throwable) {
-                    listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, null)
+                override fun onFailure(call: Call<KondisiJalanSearchResponse>, t: Throwable) {
+                    listKondisiJalan.value = ApiResponse.error(ERROR_CONNECTION, null)
                 }
             })
 
-        return listPerusahaan
+        return listKondisiJalan
     }
 
     fun getKondisiJalanById(id_kondisi_jalan: String): LiveData<ApiResponse<List<KondisiJalan>>> {
-        val listPerusahaan = MutableLiveData<ApiResponse<List<KondisiJalan>>>()
+        val listKondisiJalan = MutableLiveData<ApiResponse<List<KondisiJalan>>>()
 
         apiConfig.client().getKondisiJalanById(id_kondisi_jalan)
             .enqueue(object : Callback<KondisiJalanResponse> {
@@ -166,24 +167,24 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
                     if (response.code() == 200) {
                         response.body()?.kondisi_jalan?.let {
                             if (it.isNotEmpty()) {
-                                listPerusahaan.value = ApiResponse.success(it)
+                                listKondisiJalan.value = ApiResponse.success(it)
                             } else if (it.isEmpty()) {
-                                listPerusahaan.value = ApiResponse.empty(EMPTY_DATA, it)
+                                listKondisiJalan.value = ApiResponse.empty(EMPTY_DATA, it)
                             }
                         }
                     } else {
                         response.body()?.kondisi_jalan?.let {
-                            listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, it)
+                            listKondisiJalan.value = ApiResponse.error(ERROR_CONNECTION, it)
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<KondisiJalanResponse>, t: Throwable) {
-                    listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, null)
+                    listKondisiJalan.value = ApiResponse.error(ERROR_CONNECTION, null)
                 }
             })
 
-        return listPerusahaan
+        return listKondisiJalan
     }
 
     fun getAllTrayek(): LiveData<ApiResponse<List<Trayek>>> {

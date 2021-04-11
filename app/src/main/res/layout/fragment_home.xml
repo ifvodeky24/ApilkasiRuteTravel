@@ -68,6 +68,7 @@
                             android:layout_marginTop="4dp"
                             android:layout_weight="1"
                             android:gravity="end"
+                            android:visibility="invisible"
                             android:text="Lihat Semua"
                             android:textSize="14sp"
                             android:textStyle="bold" />

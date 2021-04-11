@@ -57,17 +57,28 @@
             app:layout_constraintStart_toStartOf="parent" />
     </LinearLayout>
 
-
-    <ImageView
-        android:id="@+id/iv_current_location"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:contentDescription="@string/current_location"
-        android:src="@drawable/ic_current_location"
+        android:background="@drawable/background_current_loc"
+        android:orientation="vertical"
+        android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/ll_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_current_location"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/current_location"
+            android:src="@drawable/ic_current_location"
+            app:layout_constraintBottom_toTopOf="@+id/ll_button"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

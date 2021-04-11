@@ -347,7 +347,7 @@ class KondisiJalanFragment : Fragment() {
                 locationComponent.lastKnownLocation?.longitude as Double
             )
             Timber.d("my location $mylocation")
-            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 12.0))
+            mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 6.0))
         } else {
             permissionsManager = PermissionsManager(object : PermissionsListener {
                 override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {

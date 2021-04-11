@@ -8,6 +8,6 @@ import com.example.aplikasirutetravel.vo.Resource
 
 class TrayekViewModel(private val perusahaanRepository: TravelRepository) : ViewModel() {
 
-//    fun getAllTrayek(): LiveData<Resource<List<TrayekEntity>>> =
-//        perusahaanRepository.getAllTrayek()
+    fun getAllTrayek(): LiveData<Resource<List<TrayekEntity>>> =
+        perusahaanRepository.getAllTrayek()
 }

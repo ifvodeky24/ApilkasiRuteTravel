@@ -54,7 +54,7 @@ class AngkutanFragment : Fragment(), AngkutanCallback {
 
         val factory = ViewModelFactory.getInstance(requireActivity())
 
-        val viewModel = ViewModelProvider(this, factory)[PerusahaanViewModel::class.java]
+        val viewModel = ViewModelProvider(this, factory)[TrayekViewModel::class.java]
 
         val perusahaanAdapter = AngkutanAdapter(this@AngkutanFragment)
         viewModel.getAllTrayek().observe(this, { angkutan ->
