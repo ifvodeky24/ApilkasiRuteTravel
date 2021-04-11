@@ -96,15 +96,17 @@ class KondisiJalanFragment : Fragment() {
                     when (kondisiJalan.status) {
                         Status.SUCCESS -> {
                             Timber.d("cek ${kondisiJalan.data?.size}")
-                            showMarker(kondisiJalan.data)
+
+                            if (kondisiJalan.data != null) {
+                                if (kondisiJalan.data.isNotEmpty()) {
+                                    showMarker(kondisiJalan.data)
+                                }
+                            } else {
+                                Toast.makeText(activity, "Data tidak ditemukan", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
 
                             binding?.ivCari?.setOnClickListener {
-                                val factory = ViewModelFactory.getInstance(requireActivity())
-
-                                val viewModel = ViewModelProvider(
-                                    this,
-                                    factory
-                                )[KondisiJalanViewModel::class.java]
 
                                 Timber.d("cek text ${binding?.edtCari?.text.toString()}")
                                 viewModel.getAllKondisiJalanSearch(binding?.edtCari?.text.toString())
@@ -114,15 +116,33 @@ class KondisiJalanFragment : Fragment() {
                                         when (kondisiJalan.status) {
                                             Status.SUCCESS -> {
                                                 Timber.d("cek search ${kondisiJalan.data?.size}")
-                                                showMarker(kondisiJalan.data)
+                                                if (kondisiJalan.data != null) {
+                                                    if (kondisiJalan.data.isNotEmpty()) {
+                                                        showMarker(kondisiJalan.data)
+                                                    }
+                                                } else {
+                                                    Toast.makeText(
+                                                        activity,
+                                                        "Data tidak ditemukan",
+                                                        Toast.LENGTH_SHORT
+                                                    ).show()
+                                                }
                                             }
                                             Status.ERROR -> {
                                                 Timber.d("cek search error ${kondisiJalan.message}")
+                                            }
+                                            Status.LOADING -> {
+
                                             }
                                         }
                                     })
                             }
                         }
+
+                        Status.LOADING -> {
+
+                        }
+
                         Status.ERROR -> {
                             Timber.d("cek error ${kondisiJalan.message}")
                         }

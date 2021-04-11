@@ -25,8 +25,8 @@
             android:layout_marginBottom="2dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textColor="@color/indigo_500"
+            android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Nama Angkutan" />
 
@@ -37,7 +37,8 @@
             android:layout_below="@id/tv_nama_angkutan"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
             tools:text="Asal" />
 
         <TextView
@@ -47,7 +48,8 @@
             android:layout_below="@id/tv_asal"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
             tools:text="Tujuan" />
 
         <TextView
@@ -57,7 +59,8 @@
             android:layout_below="@id/tv_tujuan"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
             tools:text="Hari" />
 
         <TextView
@@ -67,7 +70,8 @@
             android:layout_below="@id/tv_hari"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:textColor="@android:color/holo_orange_dark"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
             tools:text="Jam" />
     </RelativeLayout>
 

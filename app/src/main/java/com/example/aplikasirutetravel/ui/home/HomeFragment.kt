@@ -44,6 +44,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding?.toolbar?.toolbarTitle?.text = "Rute Travel Pekanbaru"
+
         binding?.rvInformasi?.setHasFixedSize(true)
 
         list.addAll(DataInformasi.listData)
@@ -120,7 +122,7 @@ class HomeFragment : Fragment() {
             }
             != PackageManager.PERMISSION_GRANTED
         ) {
-            Toast.makeText(activity, "need permission", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity, "Mohon izinkan semua permission yang dibutuhkan", Toast.LENGTH_SHORT).show()
 
             Dexter.withContext(activity)
                 .withPermissions(

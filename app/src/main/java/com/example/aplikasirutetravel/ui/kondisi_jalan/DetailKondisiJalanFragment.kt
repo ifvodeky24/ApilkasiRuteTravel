@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.data.source.remote.service.ApiConfig
 import com.example.aplikasirutetravel.databinding.FragmentDetailKondisiJalanNewBinding
 import com.example.aplikasirutetravel.viewmodel.KondisiJalanViewModel
@@ -37,6 +40,19 @@ class DetailKondisiJalanFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        binding?.toolbarDetailKondisiJalan?.toolbarTitle?.text = "Detail Kondisi Jalan"
+        binding?.toolbarDetailKondisiJalan?.toolbarBack?.let {
+            Glide.with(this)
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(R.drawable.ic_back_toolbar)
+                .into(it)
+        }
+
+        binding?.toolbarDetailKondisiJalan?.toolbarBack?.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         val factory = ViewModelFactory.getInstance(requireActivity())
 

@@ -33,12 +33,11 @@ class AngkutanAdapter(private val callback: AngkutanCallback) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(angkutan: TrayekEntity) {
             with(binding) {
-
                 tvNamaAngkutan.text = angkutan.nama_trayek
-                tvAsal.text = angkutan.asal
-                tvTujuan.text = angkutan.tujuan
-                tvHari.text = angkutan.hari
-                tvJam.text = angkutan.jam
+                tvAsal.text = "Asal: ${angkutan.asal}"
+                tvTujuan.text = "Tujuan: ${angkutan.tujuan}"
+                tvHari.text = "Hari: ${angkutan.hari}"
+                tvJam.text = "Pukul: ${angkutan.jam}"
 
                 itemView.setOnClickListener {
                     callback.onItemClick(angkutan)

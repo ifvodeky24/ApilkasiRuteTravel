@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
 import com.example.aplikasirutetravel.databinding.FragmentDetailAngkutanBinding
-import com.google.gson.Gson
 import com.mapbox.android.core.permissions.PermissionsListener
 import com.mapbox.android.core.permissions.PermissionsManager
 import com.mapbox.api.directions.v5.models.DirectionsResponse
@@ -21,7 +20,6 @@ import com.mapbox.api.directions.v5.models.DirectionsRoute
 import com.mapbox.geojson.Point
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory
 import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import com.mapbox.mapboxsdk.location.LocationComponent
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions
 import com.mapbox.mapboxsdk.location.LocationComponentOptions
@@ -31,8 +29,6 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import timber.log.Timber
@@ -103,11 +99,10 @@ class DetailAngkutanFragment : Fragment() {
     }
 
     private fun showRoute() {
-
-//        val destination = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
-        val destination = Point.fromLngLat(data!!.longitude_tujuan.toDouble(), data!!.latitude_tujuan.toDouble())
-        val origin = Point.fromLngLat(data!!.longitude_asal.toDouble(), data!!.latitude_asal.toDouble())
-//        val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
+        val destination =
+            Point.fromLngLat(data!!.longitude_tujuan.toDouble(), data!!.latitude_tujuan.toDouble())
+        val origin =
+            Point.fromLngLat(data!!.longitude_asal.toDouble(), data!!.latitude_asal.toDouble())
         Timber.d("oopp $origin yyeee $destination")
         requestRoute(origin, destination)
     }
@@ -149,7 +144,7 @@ class DetailAngkutanFragment : Fragment() {
                     .withDraggable(false)
             )
 
-            mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(asal, 8.0))
+            mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(asal, 4.0))
         }
     }
 

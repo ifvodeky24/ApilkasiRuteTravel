@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
 import com.example.aplikasirutetravel.databinding.FragmentAngkutanBinding
@@ -36,6 +38,19 @@ class AngkutanFragment : Fragment(), AngkutanCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding?.toolbar?.toolbarTitle?.text = "Daftar Angkutan"
+        binding?.toolbar?.toolbarBack?.let {
+            Glide.with(this)
+                .asBitmap()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .load(R.drawable.ic_back_toolbar)
+                .into(it)
+        }
+
+        binding?.toolbar?.toolbarBack?.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         val factory = ViewModelFactory.getInstance(requireActivity())
 
