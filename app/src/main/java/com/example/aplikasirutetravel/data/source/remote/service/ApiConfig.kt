@@ -8,10 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ApiConfig {
     companion object {
         var perusahaan_image =
-            "http://192.168.100.22/rute-travel/web/files/images/perusahaan_images/"
+            "http://arslyn.com/rute-travel/web/files/images/perusahaan_images/"
 
         var kondisi_jalan =
-            "http://192.168.100.22/rute-travel/web/files/images/kondisi_jalan_images/"
+            "http://arslyn.com/rute-travel/web/files/images/kondisi_jalan_images/"
     }
 
     private var retrofit: Retrofit? = null
@@ -25,7 +25,7 @@ class ApiConfig {
                 .build()
 
             retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.100.22/rute-travel/api/v1/")
+                .baseUrl("http://arslyn.com/rute-travel/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()

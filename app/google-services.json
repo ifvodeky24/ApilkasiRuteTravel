@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "716191147553",
+    "project_id": "aplikasirutetravel",
+    "storage_bucket": "aplikasirutetravel.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716191147553:android:bf641184ab4dda137b6560",
+        "android_client_info": {
+          "package_name": "com.example.aplikasirutetravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716191147553-or7kpab06c2fk3h1tmh0ba1uiibp4c6t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aplikasirutetravel",
+            "certificate_hash": "8b794bb4b82e4471424cd3b841d8f502f09fb4b1"
+          }
+        },
+        {
+          "client_id": "716191147553-i82f2uplt2tdq6ur01takuikrja77ccs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm037U7UV_LRPEMDl9PF5946aIzA4pucM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716191147553-i82f2uplt2tdq6ur01takuikrja77ccs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

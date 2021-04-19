@@ -72,7 +72,6 @@ class DetailAngkutanFragment : Fragment() {
         binding?.mapView?.getMapAsync { mapboxMap ->
             this.mapboxMap = mapboxMap
             mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
-                showMyLocation(style)
                 symbolManager = SymbolManager(binding?.mapView!!, mapboxMap, style)
                 symbolManager.iconAllowOverlap = true
 
@@ -184,58 +183,6 @@ class DetailAngkutanFragment : Fragment() {
                     Toast.makeText(activity, "Error : $t", Toast.LENGTH_SHORT).show()
                 }
             })
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun showMyLocation(style: Style) {
-        if (PermissionsManager.areLocationPermissionsGranted(activity)) {
-            val locationComponentOptions = activity?.let {
-                LocationComponentOptions.builder(it)
-                    .pulseEnabled(true)
-                    .pulseColor(Color.BLUE)
-                    .pulseAlpha(.4f)
-                    .pulseInterpolator(BounceInterpolator())
-                    .build()
-            }
-            val locationComponentActivationOptions = activity?.let {
-                LocationComponentActivationOptions
-                    .builder(it, style)
-                    .locationComponentOptions(locationComponentOptions)
-                    .build()
-            }
-            locationComponent = mapboxMap.locationComponent
-            if (locationComponentActivationOptions != null) {
-                locationComponent.activateLocationComponent(locationComponentActivationOptions)
-            }
-            locationComponent.isLocationComponentEnabled = true
-            locationComponent.cameraMode = CameraMode.TRACKING
-            locationComponent.renderMode = RenderMode.COMPASS
-            mylocation = LatLng(
-                locationComponent.lastKnownLocation?.latitude as Double,
-                locationComponent.lastKnownLocation?.longitude as Double
-            )
-        } else {
-            permissionsManager = PermissionsManager(object : PermissionsListener {
-                override fun onExplanationNeeded(permissionsToExplain: MutableList<String>?) {
-                    Toast.makeText(
-                        activity,
-                        "Anda harus mengizinkan location permission untuk menggunakan aplikasi ini",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                override fun onPermissionResult(granted: Boolean) {
-                    if (granted) {
-                        mapboxMap.getStyle { style ->
-                            showMyLocation(style)
-                        }
-                    } else {
-                        activity?.finish()
-                    }
-                }
-            })
-            permissionsManager.requestLocationPermissions(activity)
-        }
     }
 
     override fun onStart() {

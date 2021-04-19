@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
 
         binding?.linearLayoutAngkutan?.setOnClickListener {
             findNavController().navigate(R.id.angkutanFragment)
+//            throw RuntimeException("Test Crash")
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(

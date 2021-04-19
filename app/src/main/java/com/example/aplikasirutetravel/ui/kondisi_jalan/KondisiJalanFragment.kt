@@ -16,7 +16,6 @@ import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
 import com.example.aplikasirutetravel.databinding.FragmentKondisiJalanBinding
 import com.example.aplikasirutetravel.utils.gone
-import com.example.aplikasirutetravel.utils.visible
 import com.example.aplikasirutetravel.viewmodel.KondisiJalanViewModel
 import com.example.aplikasirutetravel.viewmodel.ViewModelFactory
 import com.example.aplikasirutetravel.vo.Status
@@ -38,8 +37,6 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import timber.log.Timber
@@ -151,7 +148,7 @@ class KondisiJalanFragment : Fragment() {
 
                 binding?.ivCurrentLocation?.setOnClickListener {
                     mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 12.0))
-                    binding?.btnNavigation?.gone()
+//                    binding?.btnNavigation?.gone()
                     binding?.btnDetail?.gone()
                     navigationMapRoute.updateRouteVisibilityTo(false)
                 }
@@ -212,33 +209,33 @@ class KondisiJalanFragment : Fragment() {
                             DetailKondisiJalanFragment.ID_KONDISI_JALAN,
                             dataKondisiJalan.id_kondisi_jalan
                         )
-//                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
 //                val intent = Intent(this, DetailTourismActivity::class.java)
 //                intent.putExtra(DetailTourismActivity.EXTRA_DATA, data)
 //                startActivity(intent)
 
                         Timber.d("oiii $data")
 
-                        val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
-                        val destination = Point.fromLngLat(
-                            dataKondisiJalan.longitude.toDouble(),
-                            dataKondisiJalan.latitude.toDouble()
-                        )
-                        requestRoute(origin, destination)
+//                        val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
+//                        val destination = Point.fromLngLat(
+//                            dataKondisiJalan.longitude.toDouble(),
+//                            dataKondisiJalan.latitude.toDouble()
+//                        )
+//                        requestRoute(origin, destination)
 
-                        binding?.btnNavigation?.visible()
-                        binding?.btnDetail?.visible()
+//                        binding?.btnNavigation?.visible()
+//                        binding?.btnDetail?.visible()
 
-                        binding?.btnNavigation?.setOnClickListener {
-                            val simulateRoute = false
-
-                            val options = NavigationLauncherOptions.builder()
-                                .directionsRoute(currentRoute)
-                                .shouldSimulateRoute(simulateRoute)
-                                .build()
-
-                            NavigationLauncher.startNavigation(activity, options)
-                        }
+//                        binding?.btnNavigation?.setOnClickListener {
+//                            val simulateRoute = false
+//
+//                            val options = NavigationLauncherOptions.builder()
+//                                .directionsRoute(currentRoute)
+//                                .shouldSimulateRoute(simulateRoute)
+//                                .build()
+//
+//                            NavigationLauncher.startNavigation(activity, options)
+//                        }
 
                         binding?.btnDetail?.setOnClickListener {
                             val dataKondisiJalan =
@@ -272,34 +269,33 @@ class KondisiJalanFragment : Fragment() {
                     )
 
                     symbolManager.addClickListener { symbol ->
-
                         val arg = Bundle()
                         arg.putString(
                             DetailKondisiJalanFragment.ID_KONDISI_JALAN,
                             data[0].id_kondisi_jalan
                         )
-//                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
 
-                        val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
-                        val destination = Point.fromLngLat(
-                            data[0].longitude.toDouble(),
-                            data[0].latitude.toDouble()
-                        )
-                        requestRoute(origin, destination)
+//                        val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
+//                        val destination = Point.fromLngLat(
+//                            data[0].longitude.toDouble(),
+//                            data[0].latitude.toDouble()
+//                        )
+//                        requestRoute(origin, destination)
 
-                        binding?.btnNavigation?.visible()
-                        binding?.btnDetail?.visible()
+//                        binding?.btnNavigation?.visible()
+//                        binding?.btnDetail?.visible()
 
-                        binding?.btnNavigation?.setOnClickListener {
-                            val simulateRoute = false
-
-                            val options = NavigationLauncherOptions.builder()
-                                .directionsRoute(currentRoute)
-                                .shouldSimulateRoute(simulateRoute)
-                                .build()
-
-                            NavigationLauncher.startNavigation(activity, options)
-                        }
+//                        binding?.btnNavigation?.setOnClickListener {
+//                            val simulateRoute = false
+//
+//                            val options = NavigationLauncherOptions.builder()
+//                                .directionsRoute(currentRoute)
+//                                .shouldSimulateRoute(simulateRoute)
+//                                .build()
+//
+//                            NavigationLauncher.startNavigation(activity, options)
+//                        }
 
                         binding?.btnDetail?.setOnClickListener {
                             val arg = Bundle()
@@ -343,9 +339,24 @@ class KondisiJalanFragment : Fragment() {
             locationComponent.cameraMode = CameraMode.TRACKING
             locationComponent.renderMode = RenderMode.COMPASS
             mylocation = LatLng(
-                locationComponent.lastKnownLocation?.latitude as Double,
-                locationComponent.lastKnownLocation?.longitude as Double
+                -0.386039,
+                102.554871
             )
+
+//            if (locationComponent != null){
+//                locationComponent.isLocationComponentEnabled = true
+//                locationComponent.cameraMode = CameraMode.TRACKING
+//                locationComponent.renderMode = RenderMode.COMPASS
+//                mylocation = LatLng(
+//                    -0.386039,
+//                    102.554871
+//                )
+//            } else {
+//                mylocation = LatLng(
+//                    -0.386039,
+//                    102.554871
+//                )
+//            }
             Timber.d("my location $mylocation")
             mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 6.0))
         } else {
