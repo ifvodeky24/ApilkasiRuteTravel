@@ -72,4 +72,8 @@
     <color name="light_green_A200">#B2FF59</color>
     <color name="light_green_A400">#76FF03</color>
     <color name="light_green_A700">#64DD17</color>
+    <color name="background">#EBEBEB</color>
+    <color name="trending_start">#00B09B</color>
+    <color name="trending_end">#96C93D</color>
+    <color name="divider">#D6D6D6</color>
 </resources>

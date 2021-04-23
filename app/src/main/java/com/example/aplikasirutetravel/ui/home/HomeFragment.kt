@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
@@ -13,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.databinding.FragmentHomeBinding
 import com.karumi.dexter.Dexter
@@ -44,12 +47,17 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding?.toolbar?.toolbarTitle?.text = "Rute Travel Pekanbaru"
-
-        binding?.rvInformasi?.setHasFixedSize(true)
-
         list.addAll(DataInformasi.listData)
-        showRecyclerList()
+        binding?.carouselInformation?.setImageListener { position, imageView ->
+            imageView.scaleType = ImageView.ScaleType.FIT_XY
+            Glide.with(this)
+                .asBitmap()
+                .load(list[position].photo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.drawable.img_error_connection)
+                .into(imageView)
+        }
+        binding?.carouselInformation?.pageCount = list.size
 
         binding?.linearLayoutPerusahaan?.setOnClickListener {
             findNavController().navigate(R.id.perusahaanFragment)
@@ -144,13 +152,6 @@ class HomeFragment : Fragment() {
                     }
                 }).check()
         }
-    }
-
-    private fun showRecyclerList() {
-        binding?.rvInformasi?.layoutManager =
-            LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-        val listHeroAdapter = InformasiAdapter(list)
-        binding?.rvInformasi?.adapter = listHeroAdapter
     }
 
 }
