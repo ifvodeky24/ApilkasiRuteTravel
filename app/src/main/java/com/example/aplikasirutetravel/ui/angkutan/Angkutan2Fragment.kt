@@ -1,4 +1,4 @@
-package com.example.aplikasirutetravel.ui.kondisi_jalan
+package com.example.aplikasirutetravel.ui.angkutan
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
@@ -11,12 +11,11 @@ import android.view.animation.BounceInterpolator
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.aplikasirutetravel.R
-import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
-import com.example.aplikasirutetravel.databinding.FragmentKondisiJalanBinding
-import com.example.aplikasirutetravel.utils.gone
-import com.example.aplikasirutetravel.viewmodel.KondisiJalanViewModel
+import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
+import com.example.aplikasirutetravel.databinding.FragmentAngkutan2Binding
+import com.example.aplikasirutetravel.utils.visible
+import com.example.aplikasirutetravel.viewmodel.TrayekViewModel
 import com.example.aplikasirutetravel.viewmodel.ViewModelFactory
 import com.example.aplikasirutetravel.vo.Status
 import com.google.gson.Gson
@@ -37,13 +36,15 @@ import com.mapbox.mapboxsdk.maps.MapboxMap
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
 import timber.log.Timber
 
-class KondisiJalanFragment : Fragment() {
+class Angkutan2Fragment : Fragment() {
 
-    private var _binding: FragmentKondisiJalanBinding? = null
+    private var _binding: FragmentAngkutan2Binding? = null
     private val binding get() = _binding
 
     private lateinit var mapboxMap: MapboxMap
@@ -63,16 +64,17 @@ class KondisiJalanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentKondisiJalanBinding.inflate(inflater, container, false)
+        _binding = FragmentAngkutan2Binding.inflate(inflater, container, false)
         return binding?.root
+
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val factory = ViewModelFactory.getInstance(requireActivity())
 
-        val viewModel = ViewModelProvider(this, factory)[KondisiJalanViewModel::class.java]
+        val viewModel = ViewModelProvider(this, factory)[TrayekViewModel::class.java]
 
         binding?.mapView?.onCreate(savedInstanceState)
         binding?.mapView?.getMapAsync { mapboxMap ->
@@ -89,51 +91,20 @@ class KondisiJalanFragment : Fragment() {
                     R.style.NavigationMapRoute
                 )
 
-                viewModel.getAllKondisiJalan().observe(this, { kondisiJalan ->
-                    when (kondisiJalan.status) {
+                viewModel.getAllTrayek().observe(this, { trayek ->
+                    when (trayek.status) {
                         Status.SUCCESS -> {
-                            Timber.d("cek ${kondisiJalan.data?.size}")
+                            Timber.d("cek ${trayek.data?.size}")
 
-                            if (kondisiJalan.data != null) {
-                                if (kondisiJalan.data.isNotEmpty()) {
-                                    showMarker(kondisiJalan.data)
+                            if (trayek.data != null) {
+                                if (trayek.data.isNotEmpty()) {
+                                    showMarker(trayek.data)
                                 }
                             } else {
                                 Toast.makeText(activity, "Data tidak ditemukan", Toast.LENGTH_SHORT)
                                     .show()
                             }
 
-                            binding?.ivCari?.setOnClickListener {
-
-                                Timber.d("cek text ${binding?.edtCari?.text.toString()}")
-                                viewModel.getAllKondisiJalanSearch(binding?.edtCari?.text.toString())
-                                    .observe(this, { kondisiJalan ->
-                                        Timber.d("cek kondisi ${kondisiJalan.data?.size}")
-
-                                        when (kondisiJalan.status) {
-                                            Status.SUCCESS -> {
-                                                Timber.d("cek search ${kondisiJalan.data?.size}")
-                                                if (kondisiJalan.data != null) {
-                                                    if (kondisiJalan.data.isNotEmpty()) {
-                                                        showMarker(kondisiJalan.data)
-                                                    }
-                                                } else {
-                                                    Toast.makeText(
-                                                        activity,
-                                                        "Data tidak ditemukan",
-                                                        Toast.LENGTH_SHORT
-                                                    ).show()
-                                                }
-                                            }
-                                            Status.ERROR -> {
-                                                Timber.d("cek search error ${kondisiJalan.message}")
-                                            }
-                                            Status.LOADING -> {
-
-                                            }
-                                        }
-                                    })
-                            }
                         }
 
                         Status.LOADING -> {
@@ -141,22 +112,16 @@ class KondisiJalanFragment : Fragment() {
                         }
 
                         Status.ERROR -> {
-                            Timber.d("cek error ${kondisiJalan.message}")
+                            Timber.d("cek error ${trayek.message}")
                         }
                     }
                 })
 
-                binding?.ivCurrentLocation?.setOnClickListener {
-                    mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 12.0))
-//                    binding?.btnNavigation?.gone()
-                    binding?.btnDetail?.gone()
-                    navigationMapRoute.updateRouteVisibilityTo(false)
-                }
             }
         }
     }
 
-    private fun showMarker(data: List<KondisiJalanEntity>?) {
+    private fun showMarker(data: List<TrayekEntity>?) {
         symbolManager.deleteAll()
         mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
             style.addImage(
@@ -172,24 +137,24 @@ class KondisiJalanFragment : Fragment() {
                     val latLngBoundsBuilder = LatLngBounds.Builder()
                     val options = ArrayList<SymbolOptions>()
                     data.forEach { data ->
-                        Timber.d("cek lat banyaj ${data.latitude.toDouble()} dan ${data.longitude.toDouble()} ")
+                        Timber.d("cek lat banyaj ${data.latitude_asal.toDouble()} dan ${data.longitude_asal.toDouble()} ")
                         latLngBoundsBuilder.include(
                             LatLng(
-                                data.latitude.toDouble(),
-                                data.longitude.toDouble()
+                                data.latitude_asal.toDouble(),
+                                data.longitude_asal.toDouble()
                             )
                         )
                         options.add(
                             SymbolOptions()
                                 .withLatLng(
                                     LatLng(
-                                        data.latitude.toDouble(),
-                                        data.longitude.toDouble()
+                                        data.latitude_asal.toDouble(),
+                                        data.longitude_asal.toDouble()
                                     )
                                 )
                                 .withIconImage(ICON_ID)
                                 .withData(Gson().toJsonTree(data))
-                                .withTextField(data.nama_lokasi)
+                                .withTextField(data.nama_trayek)
                                 .withTextHaloWidth(5.0f)
                                 .withTextAnchor("top")
                                 .withTextOffset(arrayOf(0f, 1.5f))
@@ -202,50 +167,34 @@ class KondisiJalanFragment : Fragment() {
                         5000
                     )
                     symbolManager.addClickListener { symbol ->
-                        val dataKondisiJalan =
-                            Gson().fromJson(symbol.data, KondisiJalanEntity::class.java)
-                        val arg = Bundle()
-                        arg.putString(
-                            DetailKondisiJalanFragment.ID_KONDISI_JALAN,
-                            dataKondisiJalan.id_kondisi_jalan
+                        val dataTrayek =
+                            Gson().fromJson(symbol.data, TrayekEntity::class.java)
+
+                        val origin = Point.fromLngLat(
+                            dataTrayek.longitude_asal.toDouble(),
+                            dataTrayek.latitude_asal.toDouble()
                         )
-                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
-//                val intent = Intent(this, DetailTourismActivity::class.java)
-//                intent.putExtra(DetailTourismActivity.EXTRA_DATA, data)
-//                startActivity(intent)
+                        val destination = Point.fromLngLat(
+                            dataTrayek.longitude_tujuan.toDouble(),
+                            dataTrayek.latitude_tujuan.toDouble()
+                        )
+                        requestRoute(origin, destination)
 
-                        Timber.d("oiii $data")
+                        binding?.llDetail?.visible()
+                        binding?.tvNamaPerusahaan?.text = "Nama Perusahaan: ${dataTrayek.nama_perusahaan}"
+                        binding?.tvNamaTrayek?.text = "Nama Trayek: ${dataTrayek.nama_trayek}"
+                        binding?.tvAsalTujuan?.text = "Asal: ${dataTrayek.asal}, Tujuan: ${dataTrayek.tujuan}"
+                        binding?.tvHariJam?.text = "Hari ${dataTrayek.hari}, Jam: ${dataTrayek.jam}"
 
-//                        val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
-//                        val destination = Point.fromLngLat(
-//                            dataKondisiJalan.longitude.toDouble(),
-//                            dataKondisiJalan.latitude.toDouble()
-//                        )
-//                        requestRoute(origin, destination)
+                        binding?.btnNavigation?.setOnClickListener {
+                            val simulateRoute = false
 
-//                        binding?.btnNavigation?.visible()
-//                        binding?.btnDetail?.visible()
+                            val option = NavigationLauncherOptions.builder()
+                                .directionsRoute(currentRoute)
+                                .shouldSimulateRoute(simulateRoute)
+                                .build()
 
-//                        binding?.btnNavigation?.setOnClickListener {
-//                            val simulateRoute = false
-//
-//                            val options = NavigationLauncherOptions.builder()
-//                                .directionsRoute(currentRoute)
-//                                .shouldSimulateRoute(simulateRoute)
-//                                .build()
-//
-//                            NavigationLauncher.startNavigation(activity, options)
-//                        }
-
-                        binding?.btnDetail?.setOnClickListener {
-                            val dataKondisiJalan =
-                                Gson().fromJson(symbol.data, KondisiJalanEntity::class.java)
-                            val arg = Bundle()
-                            arg.putString(
-                                DetailKondisiJalanFragment.ID_KONDISI_JALAN,
-                                dataKondisiJalan.id_kondisi_jalan
-                            )
-                            findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+                            NavigationLauncher.startNavigation(activity, option)
                         }
                     }
                 } else {
@@ -256,61 +205,49 @@ class KondisiJalanFragment : Fragment() {
                         SymbolOptions()
                             .withLatLng(
                                 LatLng(
-                                    data[0].latitude.toDouble(),
-                                    data[0].longitude.toDouble()
+                                    data[0].latitude_asal.toDouble(),
+                                    data[0].longitude_asal.toDouble()
                                 )
                             )
                             .withIconImage(ICON_ID)
                             .withData(Gson().toJsonTree(data))
-                            .withTextField(data[0].nama_lokasi)
+                            .withTextField(data[0].nama_trayek)
                             .withTextHaloWidth(5.0f)
                             .withTextAnchor("top")
                             .withTextOffset(arrayOf(0f, 1.5f))
                     )
 
                     symbolManager.addClickListener { symbol ->
-                        val arg = Bundle()
-                        arg.putString(
-                            DetailKondisiJalanFragment.ID_KONDISI_JALAN,
-                            data[0].id_kondisi_jalan
+
+                        val origin = Point.fromLngLat(
+                            data[0].longitude_asal.toDouble(),
+                            data[0].latitude_asal.toDouble()
                         )
-                        findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+                        val destination = Point.fromLngLat(
+                            data[0].longitude_tujuan.toDouble(),
+                            data[0].latitude_tujuan.toDouble()
+                        )
+                        requestRoute(origin, destination)
 
-//                        val origin = Point.fromLngLat(mylocation.longitude, mylocation.latitude)
-//                        val destination = Point.fromLngLat(
-//                            data[0].longitude.toDouble(),
-//                            data[0].latitude.toDouble()
-//                        )
-//                        requestRoute(origin, destination)
+                        binding?.llDetail?.visible()
+                        binding?.tvNamaPerusahaan?.text = "Nama Perusahaan: ${data[0].nama_perusahaan}"
+                        binding?.tvNamaTrayek?.text = "Nama Trayek: ${data[0].nama_trayek}"
+                        binding?.tvAsalTujuan?.text = "Asal: ${data[0].asal}, Tujuan: ${data[0].tujuan}"
+                        binding?.tvHariJam?.text = "Hari: ${data[0].hari}, Jam: ${data[0].jam}"
 
-//                        binding?.btnNavigation?.visible()
-//                        binding?.btnDetail?.visible()
+                        binding?.btnNavigation?.setOnClickListener {
+                            val simulateRoute = false
 
-//                        binding?.btnNavigation?.setOnClickListener {
-//                            val simulateRoute = false
-//
-//                            val options = NavigationLauncherOptions.builder()
-//                                .directionsRoute(currentRoute)
-//                                .shouldSimulateRoute(simulateRoute)
-//                                .build()
-//
-//                            NavigationLauncher.startNavigation(activity, options)
-//                        }
+                            val option = NavigationLauncherOptions.builder()
+                                .directionsRoute(currentRoute)
+                                .shouldSimulateRoute(simulateRoute)
+                                .build()
 
-                        binding?.btnDetail?.setOnClickListener {
-                            val arg = Bundle()
-                            arg.putString(
-                                DetailKondisiJalanFragment.ID_KONDISI_JALAN,
-                                data[0].id_kondisi_jalan
-                            )
-                            findNavController().navigate(R.id.detailKondisiJalanFragment, arg)
+                            NavigationLauncher.startNavigation(activity, option)
                         }
                     }
-//                    mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(data[0].latitude.toDouble(), data[0].longitude.toDouble()), 8.0))
                 }
             }
-
-
         }
     }
 
@@ -343,20 +280,6 @@ class KondisiJalanFragment : Fragment() {
                 102.554871
             )
 
-//            if (locationComponent != null){
-//                locationComponent.isLocationComponentEnabled = true
-//                locationComponent.cameraMode = CameraMode.TRACKING
-//                locationComponent.renderMode = RenderMode.COMPASS
-//                mylocation = LatLng(
-//                    -0.386039,
-//                    102.554871
-//                )
-//            } else {
-//                mylocation = LatLng(
-//                    -0.386039,
-//                    102.554871
-//                )
-//            }
             Timber.d("my location $mylocation")
             mapboxMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mylocation, 6.0))
         } else {
@@ -417,40 +340,5 @@ class KondisiJalanFragment : Fragment() {
                     Toast.makeText(activity, "Error : $t", Toast.LENGTH_SHORT).show()
                 }
             })
-    }
-
-    override fun onStart() {
-        super.onStart()
-        binding?.mapView?.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding?.mapView?.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding?.mapView?.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        binding?.mapView?.onStop()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        binding?.mapView?.onSaveInstanceState(outState)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding?.mapView?.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding?.mapView?.onLowMemory()
     }
 }

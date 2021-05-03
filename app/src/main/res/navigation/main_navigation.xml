@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_homeFragment_to_kondisiJalanFragment"
             app:destination="@id/kondisiJalanFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_angkutan2Fragment"
+            app:destination="@id/angkutan2Fragment" />
     </fragment>
     <fragment
         android:id="@+id/perusahaanFragment"
@@ -72,4 +75,9 @@
         android:name="com.example.aplikasirutetravel.ui.angkutan.DetailAngkutanFragment"
         android:label="fragment_detail_angkutan"
         tools:layout="@layout/fragment_detail_angkutan" />
+    <fragment
+        android:id="@+id/angkutan2Fragment"
+        android:name="com.example.aplikasirutetravel.ui.angkutan.Angkutan2Fragment"
+        android:label="fragment_angkutan2"
+        tools:layout="@layout/fragment_angkutan2" />
 </navigation>

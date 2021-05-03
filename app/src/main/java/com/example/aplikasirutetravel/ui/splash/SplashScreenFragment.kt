@@ -34,8 +34,8 @@ class SplashScreenFragment : Fragment() {
         val topAnim = AnimationUtils.loadAnimation(activity, R.anim.top_animation)
         val bottomAnim = AnimationUtils.loadAnimation(activity, R.anim.bottom_animation)
 
-        binding?.imageViewLogo?.setAnimation(topAnim)
-        binding?.textViewTitle?.setAnimation(bottomAnim)
+        binding?.imageViewLogo?.animation = topAnim
+        binding?.textViewTitle?.animation = bottomAnim
 
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.homeFragment)

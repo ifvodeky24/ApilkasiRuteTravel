@@ -68,7 +68,8 @@ class HomeFragment : Fragment() {
         }
 
         binding?.linearLayoutAngkutan?.setOnClickListener {
-            findNavController().navigate(R.id.angkutanFragment)
+//            findNavController().navigate(R.id.angkutanFragment)
+            findNavController().navigate(R.id.angkutan2Fragment)
 //            throw RuntimeException("Test Crash")
         }
 
