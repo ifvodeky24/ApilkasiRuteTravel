@@ -1,0 +1,11 @@
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:layout_alignParentTop="true"
+    android:background="@color/indigo_500"
+    android:theme="@style/SearchView"
+    app:collapseIcon="@drawable/ic_back_toolbar"
+    app:subtitleTextColor="#ACABAB"
+    app:titleTextColor="#ACABAB" />

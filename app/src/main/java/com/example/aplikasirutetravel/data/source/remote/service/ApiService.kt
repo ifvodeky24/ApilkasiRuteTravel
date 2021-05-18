@@ -35,4 +35,9 @@ interface ApiService {
     @GET("trayek/get-all")
     fun getAllTrayek(
     ): Call<TrayekResponse>
+
+    @GET("perusahaan/search")
+    fun getPerusahaanSearch(
+        @Query("query") query: String?,
+    ): Call<PerusahaanResponse>
 }

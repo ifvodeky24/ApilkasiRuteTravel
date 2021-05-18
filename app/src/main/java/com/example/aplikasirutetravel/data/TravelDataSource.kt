@@ -4,11 +4,14 @@ import androidx.lifecycle.LiveData
 import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
 import com.example.aplikasirutetravel.data.source.local.entity.PerusahaanEntity
 import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
+import com.example.aplikasirutetravel.data.source.remote.response.Perusahaan
 import com.example.aplikasirutetravel.vo.Resource
 
 interface TravelDataSource {
 
-    fun getAllPerusahaan(): LiveData<Resource<List<PerusahaanEntity>>>
+    fun getAllPerusahaan(): LiveData<Resource<List<Perusahaan>>>
+
+    fun getPerusahaanSearch(query: String): LiveData<Resource<List<Perusahaan>>>
 
     fun getAllTrayek(): LiveData<Resource<List<TrayekEntity>>>
 

@@ -57,6 +57,39 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
         return listPerusahaan
     }
 
+    fun getPerusahaanSearch(query: String): LiveData<ApiResponse<List<Perusahaan>>> {
+        val listPerusahaan = MutableLiveData<ApiResponse<List<Perusahaan>>>()
+
+        apiConfig.client().getPerusahaanSearch(query).enqueue(object : Callback<PerusahaanResponse> {
+            override fun onResponse(
+                call: Call<PerusahaanResponse>,
+                response: Response<PerusahaanResponse>
+            ) {
+                if (response.code() == 200) {
+                    response.body()?.perusahaan?.let {
+                        if (it.isNotEmpty()) {
+                            Timber.d("oiii ${response.body()?.perusahaan}")
+                            listPerusahaan.value = ApiResponse.success(it)
+                        } else if (it.isEmpty()) {
+                            listPerusahaan.value = ApiResponse.empty(EMPTY_DATA, it)
+                        }
+                    }
+
+                } else {
+                    response.body()?.perusahaan?.let {
+                        listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, it)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<PerusahaanResponse>, t: Throwable) {
+                listPerusahaan.value = ApiResponse.error(ERROR_CONNECTION, null)
+            }
+        })
+
+        return listPerusahaan
+    }
+
     fun getPerusahaanById(id_perusahaan: String): LiveData<ApiResponse<List<Perusahaan>>> {
         val listPerusahaan = MutableLiveData<ApiResponse<List<Perusahaan>>>()
 

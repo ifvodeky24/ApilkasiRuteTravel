@@ -66,7 +66,6 @@ class Angkutan2Fragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentAngkutan2Binding.inflate(inflater, container, false)
         return binding?.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +79,7 @@ class Angkutan2Fragment : Fragment() {
         binding?.mapView?.getMapAsync { mapboxMap ->
             this.mapboxMap = mapboxMap
             mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
-                showMyLocation(style)
+//                showMyLocation(style)
                 symbolManager = SymbolManager(binding?.mapView!!, mapboxMap, style)
                 symbolManager.iconAllowOverlap = true
 

@@ -5,15 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.aplikasirutetravel.data.source.local.entity.PerusahaanEntity
+import com.example.aplikasirutetravel.data.source.remote.response.Perusahaan
 import com.example.aplikasirutetravel.data.source.remote.service.ApiConfig
 import com.example.aplikasirutetravel.databinding.ItemPerusahaanBinding
 
 class PerusahaanAdapter(private val callback: PerusahaanCallback) :
     RecyclerView.Adapter<PerusahaanAdapter.ListViewHolder>() {
 
-    private var listPerusahaan = ArrayList<PerusahaanEntity>()
+    private var listPerusahaan = ArrayList<Perusahaan>()
 
-    fun setPerusahaan(perusahaan: List<PerusahaanEntity>?) {
+    fun setPerusahaan(perusahaan: List<Perusahaan>?) {
         if (perusahaan == null) return
         this.listPerusahaan.clear()
         this.listPerusahaan.addAll(perusahaan)
@@ -33,7 +34,7 @@ class PerusahaanAdapter(private val callback: PerusahaanCallback) :
 
     inner class ListViewHolder(private val binding: ItemPerusahaanBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(perusahaan: PerusahaanEntity) {
+        fun bind(perusahaan: Perusahaan) {
             with(binding) {
                 Glide.with(itemView.context)
                     .load(ApiConfig.perusahaan_image + perusahaan.foto)

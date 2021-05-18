@@ -34,43 +34,28 @@ class TravelRepository private constructor(
             }
     }
 
-    override fun getAllPerusahaan(): LiveData<Resource<List<PerusahaanEntity>>> {
+    override fun getAllPerusahaan(): LiveData<Resource<List<Perusahaan>>> {
         return object :
-            NetworkBoundResource<List<PerusahaanEntity>, List<Perusahaan>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<PerusahaanEntity>> =
-                localDataSource.getAllPerusahaan()
+            NetworkOnlyResource<List<Perusahaan>, List<Perusahaan>>(appExecutors) {
+            override fun handleCallResult(item: List<Perusahaan>?): List<Perusahaan>? {
+                return item
+            }
 
-            override fun shouldFetch(data: List<PerusahaanEntity>?): Boolean =
-                data == null || data.isEmpty()
+            override fun createCall(): LiveData<ApiResponse<List<Perusahaan>>> {
+                return remoteDataSource.getAllPerusahaan()
+            }
+        }.asLiveData()
+    }
 
-            override fun createCall(): LiveData<ApiResponse<List<Perusahaan>>> =
-                remoteDataSource.getAllPerusahaan()
+    override fun getPerusahaanSearch(query: String): LiveData<Resource<List<Perusahaan>>> {
+        return object :
+            NetworkOnlyResource<List<Perusahaan>, List<Perusahaan>>(appExecutors) {
+            override fun handleCallResult(item: List<Perusahaan>?): List<Perusahaan>? {
+                return item
+            }
 
-            public override fun saveCallResult(data: List<Perusahaan>) {
-                val perusahaanList = ArrayList<PerusahaanEntity>()
-                for (response in data) {
-                    val perusahaan = PerusahaanEntity(
-                        response.id_perusahaan,
-                        response.alamat_perusahaan,
-                        response.asal,
-                        response.created_at,
-                        response.facebook,
-                        response.foto,
-                        response.id_jadwal,
-                        response.id_trayek,
-                        response.instagram,
-                        response.nama_perusahaan,
-                        response.nama_trayek,
-                        response.nomor_handphone,
-                        response.pimpinan,
-                        response.status,
-                        response.tujuan,
-                        response.updated_at,
-                        response.website,
-                    )
-                    perusahaanList.add(perusahaan)
-                }
-                localDataSource.insertPerusahaan(perusahaanList)
+            override fun createCall(): LiveData<ApiResponse<List<Perusahaan>>> {
+                return remoteDataSource.getPerusahaanSearch(query)
             }
         }.asLiveData()
     }

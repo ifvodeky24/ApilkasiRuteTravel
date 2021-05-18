@@ -76,4 +76,36 @@
     <color name="trending_start">#00B09B</color>
     <color name="trending_end">#96C93D</color>
     <color name="divider">#D6D6D6</color>
+
+    <color name="colorPrimary">#FFF</color>
+    <color name="colorPrimaryDark">#FFF</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorBlackTransparent">#632F2F2F</color>
+    <color name="colorGrey">#333333</color>
+    <color name="colorGreyText">#484747</color>
+    <color name="colorBlueSkyWhite">#F7F9FC</color>
+    <color name="colortexthint">#a9a9a9</color>
+    <color name="colorToolbarCity">#E8F4FD</color>
+    <color name="colorBlueSky">#78BCF4</color>
+    <color name="colorBlueSky2">#7aa7d3</color>
+    <color name="colorBlueSkyDark">#0B5DAF</color>
+    <color name="colorBlueSkyDark2">#0D97FF</color>
+    <color name="colorBlue">#0061A8</color>
+    <color name="colorBlue2">#1F78CA</color>
+    <color name="colorGrey1">#909090</color>
+    <color name="fontChoose">#F19B2C</color>
+    <color name="colorDafaultNav">#707070</color>
+    <color name="colorRating">#FFD54F</color>
+    <color name="colorGreen">#00E677</color>
+    <color name="colorGrey3">#85898E</color>
+    <color name="colorBlueSky3">#E5F1FC</color>
+
+    <color name="week_color">#000</color>
+    <color name="range_bg_color">#B7C99D</color>
+    <color name="selected_date_circle_color">#54B948</color>
+    <color name="selected_date_color">#FFF</color>
+    <color name="default_date_color">#3b4144</color>
+    <color name="range_date_color">#FFF</color>
+    <color name="disable_date_color">#BDBDBD</color>
 </resources>
