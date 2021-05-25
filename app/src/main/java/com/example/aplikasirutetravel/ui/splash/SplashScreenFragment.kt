@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.aplikasirutetravel.R
@@ -30,12 +29,6 @@ class SplashScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val topAnim = AnimationUtils.loadAnimation(activity, R.anim.top_animation)
-        val bottomAnim = AnimationUtils.loadAnimation(activity, R.anim.bottom_animation)
-
-        binding?.imageViewLogo?.animation = topAnim
-        binding?.textViewTitle?.animation = bottomAnim
 
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.homeFragment)

@@ -4,26 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:background="@drawable/background"
+    android:background="@drawable/loading_screen"
     android:orientation="vertical"
     tools:context=".ui.splash.SplashScreenFragment">
-
-    <ImageView
-        android:id="@+id/image_view_logo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/ic_logo" />
-
-    <TextView
-        android:id="@+id/text_view_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/bangers"
-        android:gravity="center_horizontal"
-        android:text="Aplikasi Rute Travel \n Kota Pekanbaru"
-        android:textColor="@color/white"
-        android:textSize="26sp"
-        android:textStyle="bold" />
 
 </LinearLayout>

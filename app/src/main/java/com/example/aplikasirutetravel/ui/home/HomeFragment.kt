@@ -1,6 +1,7 @@
 package com.example.aplikasirutetravel.ui.home
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -68,9 +70,19 @@ class HomeFragment : Fragment() {
         }
 
         binding?.linearLayoutAngkutan?.setOnClickListener {
-//            findNavController().navigate(R.id.angkutanFragment)
             findNavController().navigate(R.id.angkutan2Fragment)
-//            throw RuntimeException("Test Crash")
+        }
+
+        binding?.linearLayoutInforAplikasi?.setOnClickListener {
+            AlertDialog.Builder(activity!!)
+                // Judul
+                .setTitle("Info Aplikasi")
+                // Pesan yang di tamopilkan
+                .setMessage("Versi 1.0.0")
+                .setPositiveButton("Tutup") { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                }
+                .show()
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(

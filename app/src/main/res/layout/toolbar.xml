@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
-    android:background="@color/indigo_500"
+    android:background="@color/teal_200"
     app:contentInsetEnd="0dp"
     app:contentInsetStart="0dp"
     app:contentInsetStartWithNavigation="0dp"

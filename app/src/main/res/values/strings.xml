@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Rute Travel Pekanbaru</string>
+    <string name="app_name">Rangkum</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="gambar_perusahaan">Gambar Perusahaan</string>
@@ -14,5 +14,6 @@
     <string name="deskripsi">Deskripsi</string>
     <string name="nama_perusahaan">Nama Perusahaan</string>
     <string name="alamat">Alamat</string>
+    <string name="rute_angkutan_pekanbaru">Rute Angkutan Pekanbaru</string>
 
 </resources>
