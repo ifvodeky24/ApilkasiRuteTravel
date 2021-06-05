@@ -1,18 +1,21 @@
 package com.example.aplikasirutetravel.ui.angkutan
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.BounceInterpolator
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
+import com.example.aplikasirutetravel.data.source.remote.response.Asal
 import com.example.aplikasirutetravel.databinding.FragmentAngkutan2Binding
 import com.example.aplikasirutetravel.utils.visible
 import com.example.aplikasirutetravel.viewmodel.TrayekViewModel
@@ -40,9 +43,10 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions
 import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute
+import okhttp3.internal.checkOffsetAndCount
 import timber.log.Timber
 
-class Angkutan2Fragment : Fragment() {
+class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
 
     private var _binding: FragmentAngkutan2Binding? = null
     private val binding get() = _binding
@@ -54,6 +58,13 @@ class Angkutan2Fragment : Fragment() {
     private lateinit var permissionsManager: PermissionsManager
     private var currentRoute: DirectionsRoute? = null
     private lateinit var navigationMapRoute: NavigationMapRoute
+    private lateinit var viewModel: TrayekViewModel
+
+    var languages = arrayOf("Java", "PHP", "Kotlin", "Javascript", "Python", "Swift")
+    lateinit var asalList : List<Asal>
+    var asalString = ArrayList<String>()
+    var trayekList = ArrayList<TrayekEntity>()
+    val NEW_SPINNER_ID = 1
 
     companion object {
         private const val ICON_ID = "ICON_ID"
@@ -73,7 +84,7 @@ class Angkutan2Fragment : Fragment() {
 
         val factory = ViewModelFactory.getInstance(requireActivity())
 
-        val viewModel = ViewModelProvider(this, factory)[TrayekViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[TrayekViewModel::class.java]
 
         binding?.mapView?.onCreate(savedInstanceState)
         binding?.mapView?.getMapAsync { mapboxMap ->
@@ -97,7 +108,9 @@ class Angkutan2Fragment : Fragment() {
 
                             if (trayek.data != null) {
                                 if (trayek.data.isNotEmpty()) {
-                                    showMarker(trayek.data)
+                                    trayekList.clear()
+                                    trayekList.addAll(trayek.data)
+                                    showMarker(trayekList)
                                 }
                             } else {
                                 Toast.makeText(activity, "Data tidak ditemukan", Toast.LENGTH_SHORT)
@@ -116,8 +129,79 @@ class Angkutan2Fragment : Fragment() {
                     }
                 })
 
+                viewModel.getAllAsal().observe(this, { asal ->
+                    when (asal.status) {
+                        Status.SUCCESS -> {
+                            Timber.d("cek asalllllll ${asal.data?.size}")
+                            Timber.d("cek asalllllll ${asal.data}")
+
+                            if (asal.data != null) {
+
+                                if (asal.data.isNotEmpty()) {
+                                    asalList = asal.data
+
+                                    for (i in asal.data.indices){
+                                        asalString.add(asal.data[i].asal)
+                                    }
+
+                                    Timber.d("cek dsdsdsd $asalString")
+                                    var aa = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, asalString)
+                                    aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                                    with(binding!!.spAsal)
+                                    {
+                                        adapter = aa
+                                        setSelection(0, false)
+                                        onItemSelectedListener = this@Angkutan2Fragment
+                                        prompt = "Pilih Asal"
+                                        gravity = Gravity.CENTER
+
+                                    }
+
+                                    val spinner = Spinner(activity)
+                                    spinner.id = NEW_SPINNER_ID
+
+                                    val ll = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+
+                                    ll.setMargins(10, 40, 10, 10)
+                                    binding?.linearLayout?.addView(spinner)
+
+//                                    aa = ArrayAdapter(activity!!, R.layout.spinner_right_aligned, asalString)
+//                                    aa.setDropDownViewResource(R.layout.spinner_right_aligned)
+//
+//                                    with(spinner)
+//                                    {
+//                                        adapter = aa
+//                                        setSelection(0, false)
+//                                        onItemSelectedListener = this@Angkutan2Fragment
+//                                        layoutParams = ll
+//                                        prompt = "Pilih Asal"
+//                                        setPopupBackgroundResource(R.color.material_grey_600)
+//                                    }
+                                }
+                            } else {
+                                Toast.makeText(activity, "Data tidak ditemukan", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                        }
+
+                        Status.LOADING -> {
+
+                        }
+
+                        Status.ERROR -> {
+                            Timber.d("cek error ${asal.message}")
+                        }
+                    }
+                })
+
             }
         }
+
+
+
+
     }
 
     private fun showMarker(data: List<TrayekEntity>?) {
@@ -125,7 +209,7 @@ class Angkutan2Fragment : Fragment() {
         mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
             style.addImage(
                 ICON_ID,
-                BitmapFactory.decodeResource(resources, R.drawable.mapbox_marker_icon_default), false
+                BitmapFactory.decodeResource(resources, R.drawable.map_marker_light), false
             )
 
             data?.let {
@@ -339,5 +423,73 @@ class Angkutan2Fragment : Fragment() {
                     Toast.makeText(activity, "Error : $t", Toast.LENGTH_SHORT).show()
                 }
             })
+    }
+
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        when (view?.id) {
+            1 -> {
+                showToast(message = "Spinner 2 Position:${position} and asalList: ${asalString[position]}")
+            }
+            else -> {
+                viewModel.getAllTrayekByAsal(asalString[position]).observe(this, { trayek ->
+                    when (trayek.status) {
+                        Status.SUCCESS -> {
+                            Timber.d("cekss     ${trayek.data?.size}")
+                            Timber.d("cek asasasas ${trayek.data}")
+
+                            if (trayek.data != null) {
+                                trayekList.clear()
+                                if (trayek.data.isNotEmpty()) {
+                                    for(i in trayek.data.indices){
+                                        val trayekEntity = TrayekEntity(
+                                            trayek.data[i].id_trayek,
+                                            trayek.data[i].nama_trayek,
+                                            trayek.data[i].asal,
+                                            trayek.data[i].tujuan,
+                                            trayek.data[i].id_jadwal,
+                                            trayek.data[i].latitude_asal,
+                                            trayek.data[i].longitude_asal,
+                                            trayek.data[i].latitude_tujuan,
+                                            trayek.data[i].longitude_tujuan,
+                                            trayek.data[i].status,
+                                            trayek.data[i].created_at,
+                                            trayek.data[i].updated_at,
+                                            trayek.data[i].jam,
+                                            trayek.data[i].hari,
+                                            trayek.data[i].nama_perusahaan,
+                                        )
+
+                                        trayekList.add(trayekEntity)
+                                    }
+
+                                    showMarker(trayekList)
+                                }
+                            } else {
+                                Toast.makeText(activity, "Data tidak ditemukan", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+
+                        }
+
+                        Status.LOADING -> {
+
+                        }
+
+                        Status.ERROR -> {
+                            Timber.d("cek error ${trayek.message}")
+                        }
+                    }
+                })
+                showToast(message = "Spinner 1 Position:${position} and asalList: ${asalString[position]}")
+            }
+        }
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        showToast(message = "Nothing selected")
+    }
+
+    private fun showToast(context: Context = activity!!.applicationContext, message: String, duration: Int = Toast.LENGTH_LONG) {
+        Toast.makeText(context, message, duration).show()
     }
 }

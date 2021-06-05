@@ -4,10 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.aplikasirutetravel.data.TravelRepository
 import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
+import com.example.aplikasirutetravel.data.source.remote.response.Asal
+import com.example.aplikasirutetravel.data.source.remote.response.Trayek
+import com.example.aplikasirutetravel.data.source.remote.response.TrayekAsal
 import com.example.aplikasirutetravel.vo.Resource
 
-class TrayekViewModel(private val perusahaanRepository: TravelRepository) : ViewModel() {
+class TrayekViewModel(private val trayekRepository: TravelRepository) : ViewModel() {
 
     fun getAllTrayek(): LiveData<Resource<List<TrayekEntity>>> =
-        perusahaanRepository.getAllTrayek()
+        trayekRepository.getAllTrayek()
+
+    fun getAllAsal(): LiveData<Resource<List<Asal>>> =
+        trayekRepository.getAllAsal()
+
+    fun getAllTrayekByAsal(asal: String): LiveData<Resource<List<Trayek>>> =
+        trayekRepository.getAllTrayekByAsal(asal)
 }

@@ -1,9 +1,6 @@
 package com.example.aplikasirutetravel.data.source.remote.service
 
-import com.example.aplikasirutetravel.data.source.remote.response.KondisiJalanResponse
-import com.example.aplikasirutetravel.data.source.remote.response.KondisiJalanSearchResponse
-import com.example.aplikasirutetravel.data.source.remote.response.PerusahaanResponse
-import com.example.aplikasirutetravel.data.source.remote.response.TrayekResponse
+import com.example.aplikasirutetravel.data.source.remote.response.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -40,4 +37,13 @@ interface ApiService {
     fun getPerusahaanSearch(
         @Query("query") query: String?,
     ): Call<PerusahaanResponse>
+
+    @GET("trayek/get-all-trayek-by-asal")
+    fun getAllTrayekByAsal(
+        @Query("asal") asal: String?,
+    ): Call<TrayekResponse>
+
+    @GET("trayek/get-all-asal")
+    fun getAllAsal(
+    ): Call<AsalResponse>
 }

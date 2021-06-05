@@ -3,6 +3,7 @@ package com.example.aplikasirutetravel.data.source.remote
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.aplikasirutetravel.data.source.local.entity.KondisiJalanEntity
+import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
 import com.example.aplikasirutetravel.data.source.remote.response.*
 import com.example.aplikasirutetravel.data.source.remote.service.ApiConfig
 import com.example.aplikasirutetravel.utils.EMPTY_DATA
@@ -250,5 +251,72 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
         })
 
         return listTrayek
+    }
+
+    fun getAllAsal(): LiveData<ApiResponse<List<Asal>>> {
+        val listAsal = MutableLiveData<ApiResponse<List<Asal>>>()
+
+        apiConfig.client().getAllAsal().enqueue(object : Callback<AsalResponse> {
+            override fun onResponse(
+                call: Call<AsalResponse>,
+                response: Response<AsalResponse>
+            ) {
+                if (response.code() == 200) {
+                    Timber.d("hmmmm ${response.body()}")
+                    response.body()?.trayek?.let {
+                        if (it.isNotEmpty()) {
+                            listAsal.value = ApiResponse.success(it)
+                        } else if (it.isEmpty()) {
+                            listAsal.value = ApiResponse.empty(EMPTY_DATA, it)
+                        }
+                    }
+
+                } else {
+                    Timber.d("hmmmm2 ${response.body()}")
+                    response.body()?.trayek?.let {
+                        listAsal.value = ApiResponse.error(ERROR_CONNECTION, it)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<AsalResponse>, t: Throwable) {
+                Timber.d("errroroor}")
+                listAsal.value = ApiResponse.error(ERROR_CONNECTION, null)
+            }
+        })
+
+        return listAsal
+    }
+
+    fun getAllTrayekByAsal(asal: String): LiveData<ApiResponse<List<Trayek>>> {
+        val listTrayekAsal = MutableLiveData<ApiResponse<List<Trayek>>>()
+
+        apiConfig.client().getAllTrayekByAsal(asal).enqueue(object : Callback<TrayekResponse> {
+            override fun onResponse(
+                call: Call<TrayekResponse>,
+                response: Response<TrayekResponse>
+            ) {
+                if (response.code() == 200) {
+                    response.body()?.trayek?.let {
+                        if (it.isNotEmpty()) {
+                            listTrayekAsal.value = ApiResponse.success(it)
+                        } else if (it.isEmpty()) {
+                            listTrayekAsal.value = ApiResponse.empty(EMPTY_DATA, it)
+                        }
+                    }
+
+                } else {
+                    response.body()?.trayek?.let {
+                        listTrayekAsal.value = ApiResponse.error(ERROR_CONNECTION, it)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<TrayekResponse>, t: Throwable) {
+                listTrayekAsal.value = ApiResponse.error(ERROR_CONNECTION, null)
+            }
+        })
+
+        return listTrayekAsal
     }
 }
