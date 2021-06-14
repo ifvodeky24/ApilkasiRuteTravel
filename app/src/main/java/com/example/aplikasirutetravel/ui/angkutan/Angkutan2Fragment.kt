@@ -59,8 +59,6 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
     private var currentRoute: DirectionsRoute? = null
     private lateinit var navigationMapRoute: NavigationMapRoute
     private lateinit var viewModel: TrayekViewModel
-
-    var languages = arrayOf("Java", "PHP", "Kotlin", "Javascript", "Python", "Swift")
     lateinit var asalList : List<Asal>
     var asalString = ArrayList<String>()
     var trayekList = ArrayList<TrayekEntity>()
