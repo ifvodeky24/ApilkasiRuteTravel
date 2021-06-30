@@ -490,4 +490,35 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
     private fun showToast(context: Context = activity!!.applicationContext, message: String, duration: Int = Toast.LENGTH_LONG) {
         Toast.makeText(context, message, duration).show()
     }
+
+    override fun onStart() {
+        super.onStart()
+        binding?.mapView?.onStart()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding?.mapView?.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding?.mapView?.onPause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding?.mapView?.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding?.mapView?.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        binding?.mapView?.onLowMemory()
+    }
+    
 }
