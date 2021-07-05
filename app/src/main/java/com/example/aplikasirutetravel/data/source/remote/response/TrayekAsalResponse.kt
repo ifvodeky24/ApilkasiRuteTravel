@@ -1,10 +1,10 @@
 package com.example.aplikasirutetravel.data.source.remote.response
 
-data class TrayekAsalResponse(
-    val trayek: List<TrayekAsal>
+data class TrayekTujuanResponse(
+    val trayek: List<TrayekTujuan>
 )
 
-data class TrayekAsal(
+data class TrayekTujuan(
     val id_trayek: String,
     val nama_trayek: String,
     val asal: String,
@@ -16,13 +16,13 @@ data class TrayekAsal(
     val longitude_tujuan: String,
     val status: String,
     val created_at: String,
-    val updated_at: String,
+    val updated_at: String
 )
 
-data class AsalResponse(
-    val trayek: List<Asal>
+data class TujuanResponse(
+    val trayek: List<Tujuan>
 )
 
-data class Asal(
-    val asal: String
+data class Tujuan(
+    val tujuan: String
 )

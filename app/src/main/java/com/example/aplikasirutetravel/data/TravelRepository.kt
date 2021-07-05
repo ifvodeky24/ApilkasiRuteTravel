@@ -8,7 +8,10 @@ import com.example.aplikasirutetravel.data.source.local.entity.PerusahaanEntity
 import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
 import com.example.aplikasirutetravel.data.source.remote.ApiResponse
 import com.example.aplikasirutetravel.data.source.remote.RemoteDataSource
-import com.example.aplikasirutetravel.data.source.remote.response.*
+import com.example.aplikasirutetravel.data.source.remote.response.KondisiJalan
+import com.example.aplikasirutetravel.data.source.remote.response.Perusahaan
+import com.example.aplikasirutetravel.data.source.remote.response.Trayek
+import com.example.aplikasirutetravel.data.source.remote.response.Tujuan
 import com.example.aplikasirutetravel.utils.AppExecutors
 import com.example.aplikasirutetravel.vo.Resource
 
@@ -209,20 +212,20 @@ class TravelRepository private constructor(
         }.asLiveData()
     }
 
-    override fun getAllAsal(): LiveData<Resource<List<Asal>>> {
+    override fun getAllTujuan(): LiveData<Resource<List<Tujuan>>> {
         return object :
-            NetworkOnlyResource<List<Asal>, List<Asal>>(appExecutors) {
-            override fun handleCallResult(item: List<Asal>?): List<Asal>? {
+            NetworkOnlyResource<List<Tujuan>, List<Tujuan>>(appExecutors) {
+            override fun handleCallResult(item: List<Tujuan>?): List<Tujuan>? {
                 return item
             }
 
-            override fun createCall(): LiveData<ApiResponse<List<Asal>>> {
-                return remoteDataSource.getAllAsal()
+            override fun createCall(): LiveData<ApiResponse<List<Tujuan>>> {
+                return remoteDataSource.getAllTujuan()
             }
         }.asLiveData()
     }
 
-    override fun getAllTrayekByAsal(asal: String): LiveData<Resource<List<Trayek>>> {
+    override fun getAllTrayekByTujuan(tujuan: String): LiveData<Resource<List<Trayek>>> {
         return object :
             NetworkOnlyResource<List<Trayek>, List<Trayek>>(appExecutors) {
             override fun handleCallResult(item: List<Trayek>?): List<Trayek>? {
@@ -230,9 +233,8 @@ class TravelRepository private constructor(
             }
 
             override fun createCall(): LiveData<ApiResponse<List<Trayek>>> {
-                return remoteDataSource.getAllTrayekByAsal(asal)
+                return remoteDataSource.getAllTrayekByTujuan(tujuan)
             }
         }.asLiveData()
     }
-
 }

@@ -38,12 +38,12 @@ interface ApiService {
         @Query("query") query: String?,
     ): Call<PerusahaanResponse>
 
-    @GET("trayek/get-all-trayek-by-asal")
-    fun getAllTrayekByAsal(
-        @Query("asal") asal: String?,
+    @GET("trayek/get-all-trayek-by-tujuan")
+    fun getAllTrayekByTujuan(
+        @Query("tujuan") tujuan: String?,
     ): Call<TrayekResponse>
 
-    @GET("trayek/get-all-asal")
-    fun getAllAsal(
-    ): Call<AsalResponse>
+    @GET("trayek/get-all-tujuan")
+    fun getAllTujuan(
+    ): Call<TujuanResponse>
 }

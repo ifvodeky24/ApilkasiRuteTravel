@@ -253,45 +253,45 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
         return listTrayek
     }
 
-    fun getAllAsal(): LiveData<ApiResponse<List<Asal>>> {
-        val listAsal = MutableLiveData<ApiResponse<List<Asal>>>()
+    fun getAllTujuan(): LiveData<ApiResponse<List<Tujuan>>> {
+        val listTujuan = MutableLiveData<ApiResponse<List<Tujuan>>>()
 
-        apiConfig.client().getAllAsal().enqueue(object : Callback<AsalResponse> {
+        apiConfig.client().getAllTujuan().enqueue(object : Callback<TujuanResponse> {
             override fun onResponse(
-                call: Call<AsalResponse>,
-                response: Response<AsalResponse>
+                call: Call<TujuanResponse>,
+                response: Response<TujuanResponse>
             ) {
                 if (response.code() == 200) {
                     Timber.d("hmmmm ${response.body()}")
                     response.body()?.trayek?.let {
                         if (it.isNotEmpty()) {
-                            listAsal.value = ApiResponse.success(it)
+                            listTujuan.value = ApiResponse.success(it)
                         } else if (it.isEmpty()) {
-                            listAsal.value = ApiResponse.empty(EMPTY_DATA, it)
+                            listTujuan.value = ApiResponse.empty(EMPTY_DATA, it)
                         }
                     }
 
                 } else {
                     Timber.d("hmmmm2 ${response.body()}")
                     response.body()?.trayek?.let {
-                        listAsal.value = ApiResponse.error(ERROR_CONNECTION, it)
+                        listTujuan.value = ApiResponse.error(ERROR_CONNECTION, it)
                     }
                 }
             }
 
-            override fun onFailure(call: Call<AsalResponse>, t: Throwable) {
+            override fun onFailure(call: Call<TujuanResponse>, t: Throwable) {
                 Timber.d("errroroor}")
-                listAsal.value = ApiResponse.error(ERROR_CONNECTION, null)
+                listTujuan.value = ApiResponse.error(ERROR_CONNECTION, null)
             }
         })
 
-        return listAsal
+        return listTujuan
     }
 
-    fun getAllTrayekByAsal(asal: String): LiveData<ApiResponse<List<Trayek>>> {
-        val listTrayekAsal = MutableLiveData<ApiResponse<List<Trayek>>>()
+    fun getAllTrayekByTujuan(tujuan: String): LiveData<ApiResponse<List<Trayek>>> {
+        val listTrayekTujuan = MutableLiveData<ApiResponse<List<Trayek>>>()
 
-        apiConfig.client().getAllTrayekByAsal(asal).enqueue(object : Callback<TrayekResponse> {
+        apiConfig.client().getAllTrayekByTujuan(tujuan).enqueue(object : Callback<TrayekResponse> {
             override fun onResponse(
                 call: Call<TrayekResponse>,
                 response: Response<TrayekResponse>
@@ -299,24 +299,24 @@ class RemoteDataSource(private val apiConfig: ApiConfig) {
                 if (response.code() == 200) {
                     response.body()?.trayek?.let {
                         if (it.isNotEmpty()) {
-                            listTrayekAsal.value = ApiResponse.success(it)
+                            listTrayekTujuan.value = ApiResponse.success(it)
                         } else if (it.isEmpty()) {
-                            listTrayekAsal.value = ApiResponse.empty(EMPTY_DATA, it)
+                            listTrayekTujuan.value = ApiResponse.empty(EMPTY_DATA, it)
                         }
                     }
 
                 } else {
                     response.body()?.trayek?.let {
-                        listTrayekAsal.value = ApiResponse.error(ERROR_CONNECTION, it)
+                        listTrayekTujuan.value = ApiResponse.error(ERROR_CONNECTION, it)
                     }
                 }
             }
 
             override fun onFailure(call: Call<TrayekResponse>, t: Throwable) {
-                listTrayekAsal.value = ApiResponse.error(ERROR_CONNECTION, null)
+                listTrayekTujuan.value = ApiResponse.error(ERROR_CONNECTION, null)
             }
         })
 
-        return listTrayekAsal
+        return listTrayekTujuan
     }
 }

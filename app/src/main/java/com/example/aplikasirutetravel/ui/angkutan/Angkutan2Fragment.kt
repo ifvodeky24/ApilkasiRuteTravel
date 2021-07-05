@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.aplikasirutetravel.R
 import com.example.aplikasirutetravel.data.source.local.entity.TrayekEntity
-import com.example.aplikasirutetravel.data.source.remote.response.Asal
+import com.example.aplikasirutetravel.data.source.remote.response.Tujuan
 import com.example.aplikasirutetravel.databinding.FragmentAngkutan2Binding
 import com.example.aplikasirutetravel.utils.visible
 import com.example.aplikasirutetravel.viewmodel.TrayekViewModel
@@ -59,8 +59,8 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
     private var currentRoute: DirectionsRoute? = null
     private lateinit var navigationMapRoute: NavigationMapRoute
     private lateinit var viewModel: TrayekViewModel
-    lateinit var asalList : List<Asal>
-    var asalString = ArrayList<String>()
+    lateinit var tujuanList : List<Tujuan>
+    var tujuanString = ArrayList<String>()
     var trayekList = ArrayList<TrayekEntity>()
     val NEW_SPINNER_ID = 1
 
@@ -127,7 +127,7 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
                     }
                 })
 
-                viewModel.getAllAsal().observe(this, { asal ->
+                viewModel.getAllTujuan().observe(this, { asal ->
                     when (asal.status) {
                         Status.SUCCESS -> {
                             Timber.d("cek asalllllll ${asal.data?.size}")
@@ -136,14 +136,14 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
                             if (asal.data != null) {
 
                                 if (asal.data.isNotEmpty()) {
-                                    asalList = asal.data
+                                    tujuanList = asal.data
 
                                     for (i in asal.data.indices){
-                                        asalString.add(asal.data[i].asal)
+                                        tujuanString.add(asal.data[i].tujuan)
                                     }
 
-                                    Timber.d("cek dsdsdsd $asalString")
-                                    var aa = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, asalString)
+                                    Timber.d("cek dsdsdsd $tujuanString")
+                                    var aa = ArrayAdapter(activity!!, android.R.layout.simple_spinner_item, tujuanString)
                                     aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
                                     with(binding!!.spAsal)
@@ -151,7 +151,7 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
                                         adapter = aa
                                         setSelection(0, false)
                                         onItemSelectedListener = this@Angkutan2Fragment
-                                        prompt = "Pilih Asal"
+                                        prompt = "Pilih Tujuan"
                                         gravity = Gravity.CENTER
 
                                     }
@@ -426,10 +426,10 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (view?.id) {
             1 -> {
-                showToast(message = "Spinner 2 Position:${position} and asalList: ${asalString[position]}")
+                showToast(message = "Spinner 2 Position:${position} and asalList: ${tujuanString[position]}")
             }
             else -> {
-                viewModel.getAllTrayekByAsal(asalString[position]).observe(this, { trayek ->
+                viewModel.getAllTrayekByTujuan(tujuanString[position]).observe(this, { trayek ->
                     when (trayek.status) {
                         Status.SUCCESS -> {
                             Timber.d("cekss     ${trayek.data?.size}")
@@ -478,7 +478,7 @@ class Angkutan2Fragment : Fragment() , AdapterView.OnItemSelectedListener{
                         }
                     }
                 })
-                showToast(message = "Spinner 1 Position:${position} and asalList: ${asalString[position]}")
+                showToast(message = "Spinner 1 Position:${position} and asalList: ${tujuanString[position]}")
             }
         }
     }
